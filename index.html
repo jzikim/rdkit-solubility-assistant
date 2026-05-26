@@ -1,768 +1,1060 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Joonghyuk Kim</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Joonghyuk Kim is a Data Science and Economics student at UW-Madison focused on analytics, finance, and business operations."
+  />
+  <title>Joonghyuk Kim | Data Science & Economics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
     :root {
-      --bg:       #fafaf9;
-      --surface:  #f4f4f1;
-      --border:   #e2e1dc;
-      --text:     #3a3a38;
-      --muted:    #888884;
-      --head:     #111110;
-      --acc:      #2f5e78;
-      --acc-dim:  rgba(47,94,120,0.10);
-      --serif:    'Playfair Display', Georgia, serif;
-      --body:     'Source Serif 4', Georgia, serif;
-      --mono:     'IBM Plex Mono', monospace;
+      --bg: #f7f8f5;
+      --surface: #ffffff;
+      --surface-soft: #eef1ec;
+      --text: #1d2522;
+      --muted: #65716c;
+      --border: #d9ded7;
+      --accent: #126a5b;
+      --accent-strong: #0c4b41;
+      --accent-soft: #dfeee9;
+      --gold: #a46f22;
+      --shadow: 0 18px 48px rgba(26, 39, 34, 0.09);
+      --radius: 8px;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-    html { scroll-behavior: smooth; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      background: var(--bg); color: var(--text);
-      font-family: var(--body); font-size: 16px; line-height: 1.75;
-      overflow-x: hidden;
+      margin: 0;
+      background:
+        linear-gradient(180deg, rgba(223, 238, 233, 0.72), rgba(247, 248, 245, 0) 420px),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.65;
     }
 
-    /* LANG */
-    .ko { display: none; }
-    body.lang-ko .en { display: none; }
-    body.lang-ko .ko { display: revert; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    /* LANG BTN */
-    .lang-btn {
-      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--muted);
-      background: none; border: 1px solid var(--border);
-      padding: 0.3rem 0.7rem; cursor: pointer;
-      transition: color 0.2s, border-color 0.2s; flex-shrink: 0;
+    .shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
     }
-    .lang-btn:hover { color: var(--acc); border-color: var(--acc); }
 
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.1rem 3.5rem;
-      background: rgba(250,250,249,0.94);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      gap: 1.5rem;
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(217, 222, 215, 0.85);
+      background: rgba(247, 248, 245, 0.88);
+      backdrop-filter: blur(16px);
     }
-    .nav-logo {
-      font-family: var(--serif); font-weight: 400; font-size: 1rem;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--head); text-decoration: none; flex-shrink: 0;
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 72px;
     }
-    .nav-links { display: flex; gap: 1.8rem; list-style: none; flex-wrap: wrap; }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: var(--surface);
+      color: var(--accent-strong);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      box-shadow: 0 8px 20px rgba(26, 39, 34, 0.06);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
     .nav-links a {
-      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--muted); text-decoration: none;
-      transition: color 0.2s;
+      padding: 8px 0;
+      transition: color 160ms ease;
     }
-    .nav-links a:hover { color: var(--acc); }
 
-    /* HERO */
-    #hero {
-      min-height: 100vh;
-      display: grid; grid-template-columns: 1fr 1fr;
-      align-items: end;
-      padding: 0 3.5rem 5rem;
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-action,
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid var(--text);
+      border-radius: var(--radius);
+      background: var(--text);
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    }
+
+    .nav-action:hover,
+    .button:hover {
+      transform: translateY(-1px);
+      background: var(--accent-strong);
+      border-color: var(--accent-strong);
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .button.secondary:hover {
+      color: var(--accent-strong);
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 92px 0 78px;
+      text-align: center;
+    }
+
+    .hero > div {
+      width: min(960px, 100%);
+    }
+
+    .eyebrow {
+      margin: 0 0 22px;
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 830px;
+      margin: 0 auto;
+      font-size: clamp(3.1rem, 7.4vw, 6.2rem);
+      font-weight: 650;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-summary {
+      max-width: 720px;
+      margin: 28px auto 0;
+      color: var(--muted);
+      font-size: clamp(1.03rem, 1.7vw, 1.22rem);
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    section {
+      padding: 78px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-heading {
+      margin-bottom: 34px;
+    }
+
+    .section-heading > div {
+      max-width: 760px;
+    }
+
+    h2 {
+      margin: 0;
+      max-width: 760px;
+      font-size: clamp(1.9rem, 3.5vw, 3rem);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+    }
+
+    .section-note {
+      max-width: 680px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .hero-copy {
+      display: grid;
+      gap: 14px;
+      margin-top: 26px;
+      color: #34413c;
+      font-size: 1rem;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-copy p {
+      margin: 0;
+    }
+
+    .callout {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: 0 12px 32px rgba(26, 39, 34, 0.05);
+    }
+
+    .hero .callout {
+      box-shadow: var(--shadow);
+    }
+
+    .callout h3,
+    .card h3,
+    .timeline-title {
+      margin: 0;
+      font-size: 1.02rem;
+      line-height: 1.35;
+      letter-spacing: -0.015em;
+    }
+
+    .callout ul,
+    .timeline-list {
+      display: grid;
+      gap: 10px;
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .callout li,
+    .timeline-list li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .callout li::before,
+    .timeline-list li::before {
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      content: "/";
+      font-family: var(--mono);
+    }
+
+    .timeline {
+      display: grid;
+      border-top: 1px solid var(--border);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 56px;
+      padding: 48px 0;
       border-bottom: 1px solid var(--border);
     }
-    .hero-left { padding-bottom: 0.5rem; }
-    .hero-eyebrow {
-      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--acc); margin-bottom: 2rem;
-      opacity: 0; animation: fadeUp 0.7s 0.2s ease forwards;
-    }
-    .hero-name {
-      font-family: var(--serif);
-      font-size: clamp(3rem, 6.5vw, 6rem);
-      font-weight: 400; line-height: 1.05;
-      color: var(--head); letter-spacing: 0.01em;
-      opacity: 0; animation: fadeUp 0.8s 0.35s ease forwards;
-    }
-    .hero-right {
-      padding-left: 3rem; border-left: 1px solid var(--border);
-      opacity: 0; animation: fadeUp 0.8s 0.5s ease forwards;
-    }
-    .hero-desc {
-      font-family: var(--body); font-size: 0.95rem; font-weight: 300;
-      color: var(--muted); line-height: 1.85; margin-bottom: 2.5rem;
-    }
-    .hero-meta { display: flex; flex-direction: column; gap: 0.6rem; }
-    .hero-meta-row {
-      display: flex; gap: 1rem; align-items: baseline;
-      font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em;
-    }
-    .hero-meta-row .k { color: var(--muted); min-width: 80px; }
-    .hero-meta-row .v { color: var(--text); }
 
-    /* PAGE WRAP */
-    .page-wrap { max-width: 1000px; margin: 0 auto; }
+    .timeline-date {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.86rem;
+      line-height: 1.55;
+      letter-spacing: 0.04em;
+      padding-top: 4px;
+    }
 
-    /* SECTION */
-    section { padding: 5.5rem 3.5rem; border-bottom: 1px solid var(--border); }
-    .sec-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 3.5rem; }
-    .sec-num {
-      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em;
-      color: var(--acc); text-transform: uppercase; flex-shrink: 0;
+    .timeline-item > div:last-child {
+      padding-right: 0;
     }
-    .sec-title {
-      font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 400; color: var(--head); letter-spacing: -0.01em;
-    }
-    .sec-title em { font-style: italic; color: var(--acc); }
-    .sec-rule { flex: 1; height: 1px; background: var(--border); }
 
-    /* ABOUT */
-    .about-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 4rem; }
-    .about-text { font-size: 1rem; font-weight: 300; color: var(--text); line-height: 1.9; }
-    .about-text p + p { margin-top: 1.2rem; }
-    .fact-list { display: flex; flex-direction: column; }
-    .fact-row {
-      display: flex; flex-direction: column; gap: 0.2rem;
-      padding: 1rem 0; border-bottom: 1px solid var(--border);
+    .timeline-org {
+      margin: 6px 0 0;
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
-    .fact-row:first-child { border-top: 1px solid var(--border); }
-    .fact-k {
-      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--muted);
-    }
-    .fact-v { font-size: 0.95rem; color: var(--head); }
 
-    /* TIMELINE */
-    .tl { display: flex; flex-direction: column; }
-    .tl-item {
-      display: grid; grid-template-columns: 130px 1fr; gap: 2.5rem;
-      padding: 2.2rem 0; border-bottom: 1px solid var(--border);
-      opacity: 0; transform: translateY(14px);
-      transition: opacity 0.45s ease, transform 0.45s ease;
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
     }
-    .tl-item.visible { opacity: 1; transform: none; }
-    .tl-date {
-      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em;
-      color: var(--muted); line-height: 1.6; padding-top: 0.15rem;
-    }
-    .tl-body h3 {
-      font-family: var(--serif); font-size: 1.1rem; font-weight: 500;
-      color: var(--head); margin-bottom: 0.2rem;
-    }
-    .tl-org {
-      font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em;
-      color: var(--acc); margin-bottom: 0.8rem;
-    }
-    .tl-body ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
-    .tl-body ul li {
-      font-size: 0.92rem; font-weight: 300; color: var(--text);
-      line-height: 1.7; padding-left: 1.2rem; position: relative;
-    }
-    .tl-body ul li::before { content: '›'; position: absolute; left: 0; color: var(--acc); }
-    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+
     .tag {
-      font-family: var(--mono); font-size: 0.59rem; letter-spacing: 0.1em;
-      text-transform: uppercase; padding: 0.2rem 0.6rem;
-      border: 1px solid var(--border); color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 9px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      background: var(--surface-soft);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 500;
     }
 
-    /* SKILLS */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      min-height: 100%;
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(18, 106, 91, 0.34);
+      box-shadow: 0 18px 42px rgba(26, 39, 34, 0.08);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 10px;
+      font-family: var(--mono);
+      text-transform: uppercase;
+    }
+
+    .card-type {
+      color: var(--gold);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+    }
+
+    .card-date {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: 0.66rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .card p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .card details {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .card summary {
+      cursor: pointer;
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .card summary::marker {
+      color: var(--accent);
+    }
+
+    .card details p {
+      margin-top: 10px;
+    }
+
     .skills-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px; background: var(--border); border: 1px solid var(--border);
-    }
-    .skill-block { background: var(--surface); padding: 2rem; transition: background 0.2s; }
-    .skill-block:hover { background: #eeecea; }
-    .skill-block-title {
-      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--acc); margin-bottom: 1.2rem;
-    }
-    .skill-items { display: flex; flex-direction: column; gap: 0.55rem; }
-    .skill-row { display: flex; justify-content: space-between; align-items: center; }
-    .skill-name { font-size: 0.9rem; color: var(--head); }
-    .skill-level { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; color: var(--muted); }
-    .skill-bar-wrap {
-      height: 2px; background: var(--border);
-      margin-top: 0.3rem; margin-bottom: 0.6rem;
-      border-radius: 1px; overflow: hidden;
-    }
-    .skill-bar { height: 100%; background: var(--acc); border-radius: 1px; }
-    .cert-row { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 2.5rem; }
-    .cert-pill {
-      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em;
-      padding: 0.4rem 1rem; border: 1px solid var(--acc-dim);
-      color: var(--acc); background: var(--acc-dim);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
     }
 
-    /* PROJECTS */
-    .proj-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1px; background: var(--border); border: 1px solid var(--border);
-    }
-    .proj-card {
-      background: var(--surface); padding: 2.2rem;
-      opacity: 0; transform: translateY(14px);
-      transition: opacity 0.45s ease, transform 0.45s ease, background 0.2s;
-    }
-    .proj-card.visible { opacity: 1; transform: none; }
-    .proj-card:hover { background: #eeecea; }
-    .proj-num {
-      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em;
-      color: var(--muted); margin-bottom: 0.9rem;
-    }
-    .proj-card h3 {
-      font-family: var(--serif); font-size: 1.05rem; font-weight: 500;
-      color: var(--head); margin-bottom: 0.6rem; line-height: 1.35;
-    }
-    .proj-card p { font-size: 0.88rem; font-weight: 300; color: var(--muted); line-height: 1.75; }
-
-    /* AWARDS */
-    .award-list { display: flex; flex-direction: column; }
-    .award-item {
-      display: grid; grid-template-columns: 120px 1fr; gap: 2.5rem;
-      padding: 1.5rem 0; border-bottom: 1px solid var(--border);
-      opacity: 0; transform: translateY(10px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-    .award-item.visible { opacity: 1; transform: none; }
-    .award-date { font-family: var(--mono); font-size: 0.67rem; color: var(--muted); padding-top: 0.1rem; }
-    .award-body { font-size: 0.93rem; color: var(--head); }
-    .award-body span {
-      display: block; font-family: var(--mono); font-size: 0.67rem;
-      color: var(--muted); margin-top: 0.15rem;
+    .certificate-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
     }
 
-    /* CONTACT */
-    #contact { border-bottom: none; }
-    .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-    .contact-left h2 {
-      font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 400; color: var(--head); line-height: 1.2; margin-bottom: 1rem;
+    .certificate-list .tag {
+      background: var(--surface);
     }
-    .contact-left h2 em { font-style: italic; color: var(--acc); }
-    .contact-left p { font-size: 0.9rem; font-weight: 300; color: var(--muted); line-height: 1.8; }
-    .contact-right { display: flex; flex-direction: column; }
-    .contact-row {
-      display: flex; flex-direction: column; gap: 0.2rem;
-      padding: 1.1rem 0; border-bottom: 1px solid var(--border);
-    }
-    .contact-row:first-child { border-top: 1px solid var(--border); }
-    .contact-k {
-      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--muted);
-    }
-    .contact-v { font-size: 0.95rem; color: var(--head); text-decoration: none; transition: color 0.2s; }
-    a.contact-v:hover { color: var(--acc); }
 
-    /* FOOTER */
+    .skill-column {
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .skill-column h3 {
+      margin: 0 0 16px;
+      color: var(--accent-strong);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .skill-column ul {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: #34413c;
+      font-weight: 600;
+    }
+
+    .awards-list {
+      display: grid;
+      border-top: 1px solid var(--border);
+    }
+
+    .award {
+      position: relative;
+      display: block;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .award-date {
+      position: absolute;
+      top: 20px;
+      right: 0;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .award > div:last-child {
+      padding-right: 230px;
+    }
+
+    .award strong {
+      display: block;
+      line-height: 1.35;
+    }
+
+    .award span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .award-source {
+      display: block;
+      margin-top: 6px;
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .contact {
+      padding-bottom: 88px;
+    }
+
+    .contact-panel {
+      display: grid;
+      gap: 24px;
+      align-items: start;
+      padding: 34px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--text);
+      color: #fff;
+    }
+
+    .contact-panel h2 {
+      color: #fff;
+    }
+
+    .contact-links {
+      display: grid;
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .contact-link {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px;
+      background: #23302b;
+    }
+
+    .contact-link span {
+      color: rgba(255, 255, 255, 0.55);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .contact-link a {
+      overflow-wrap: anywhere;
+      color: #fff;
+      font-weight: 700;
+    }
+
     footer {
-      padding: 1.8rem 3.5rem; border-top: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    footer span { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; color: var(--border); }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: none; }
+      padding: 28px 0 42px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.74rem;
     }
 
-    @media (max-width: 720px) {
-      nav { padding: 1rem 1.5rem; gap: 1rem; }
-      .nav-links { display: none; }
-      #hero { grid-template-columns: 1fr; padding: 8rem 1.5rem 4rem; gap: 3rem; }
-      .hero-right { padding-left: 0; border-left: none; border-top: 1px solid var(--border); padding-top: 2rem; }
-      section { padding: 4rem 1.5rem; }
-      .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .skills-grid, .proj-grid { grid-template-columns: 1fr; }
-      .tl-item, .award-item { grid-template-columns: 1fr; gap: 0.4rem; }
-      footer { flex-direction: column; gap: 0.4rem; text-align: center; }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 68px;
+      }
+
+      .section-heading {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .timeline-item {
+        grid-template-columns: 150px minmax(0, 1fr);
+        gap: 28px;
+      }
+
+      .award > div:last-child {
+        padding-right: 190px;
+      }
+
+      .card-grid,
+      .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .shell {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .nav-inner {
+        min-height: 64px;
+      }
+
+      .brand span:last-child {
+        display: none;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 18vw, 4.3rem);
+      }
+
+      section {
+        padding: 58px 0;
+      }
+
+      .timeline-item,
+      .card,
+      .skill-column,
+      .contact-panel {
+        padding: 20px;
+      }
+
+      .timeline-date {
+        font-size: 0.74rem;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .award {
+        padding: 20px 0;
+      }
+
+      .award-date {
+        position: static;
+        display: block;
+        margin-bottom: 8px;
+        text-align: left;
+      }
+
+      .award > div:last-child {
+        padding-right: 0;
+      }
+
+      .contact-link {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .card-grid,
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
+  <header class="nav">
+    <div class="shell nav-inner">
+      <a class="brand" href="#top" aria-label="Joonghyuk Kim home">
+        <span class="brand-mark">JK</span>
+        <span>Joonghyuk Kim</span>
+      </a>
+      <ul class="nav-links" aria-label="Primary navigation">
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#awards">Honors</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a class="nav-action" href="assets/Joonghyuk-Kim-Resume-2026.pdf" target="_blank" rel="noreferrer">Resume</a>
+    </div>
+  </header>
 
-<nav>
-  <a href="#hero" class="nav-logo">Joonghyuk Kim</a>
-  <ul class="nav-links">
-    <li><a href="#about"><span class="en">About</span><span class="ko">소개</span></a></li>
-    <li><a href="#education"><span class="en">Education</span><span class="ko">학력</span></a></li>
-    <li><a href="#experience"><span class="en">Experience</span><span class="ko">경력</span></a></li>
-    <li><a href="#skills"><span class="en">Skills</span><span class="ko">스킬</span></a></li>
-    <li><a href="#projects"><span class="en">Projects</span><span class="ko">프로젝트</span></a></li>
-    <li><a href="#awards"><span class="en">Awards</span><span class="ko">수상</span></a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <button class="lang-btn" id="langToggle">한국어</button>
-</nav>
-
-<div class="page-wrap">
-
-<!-- HERO -->
-<section id="hero" style="max-width:none; border-bottom:1px solid var(--border);">
-  <div class="hero-left">
-    <p class="hero-eyebrow">
-      <span class="en">Data Science · Economics · UW-Madison</span>
-      <span class="ko">데이터 사이언스 · 경제학 · UW-Madison</span>
-    </p>
-    <h1 class="hero-name">Joonghyuk Kim</h1>
-  </div>
-  <div class="hero-right">
-    <p class="hero-desc">
-      <span class="en">Bilingual analyst-in-training combining economics and data science to understand how markets and people behave. Currently a sophomore at UW-Madison, with hands-on experience across e-commerce, operations, and software development. Open to internship opportunities in data analytics, finance, or business operations.</span>
-      <span class="ko">경제학과 데이터 사이언스를 결합해 시장과 의사결정을 분석하는 분석가 지망생입니다. 현재 UW-Madison 2학년으로 재학 중이며, 이커머스·운영·소프트웨어 개발 분야에서 실무 경험을 보유하고 있습니다. 데이터 분석, 금융, 비즈니스 운영 분야의 인턴십 기회를 찾고 있습니다.</span>
-    </p>
-    <div class="hero-meta">
-      <div class="hero-meta-row">
-        <span class="k"><span class="en">School</span><span class="ko">학교</span></span>
-        <span class="v">University of Wisconsin-Madison</span>
-      </div>
-      <div class="hero-meta-row">
-        <span class="k"><span class="en">Major</span><span class="ko">전공</span></span>
-        <span class="v">Data Science &amp; Economics</span>
-      </div>
-      <div class="hero-meta-row">
-        <span class="k">GPA</span>
-        <span class="v">3.50 (UW) · 3.75 (MSU)</span>
-      </div>
-      <div class="hero-meta-row">
-        <span class="k"><span class="en">Languages</span><span class="ko">언어</span></span>
-        <span class="v"><span class="en">Korean · English</span><span class="ko">한국어 · 영어</span></span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="sec-header">
-    <span class="sec-num">01</span>
-    <h2 class="sec-title"><span class="en">About <em>Me</em></span><span class="ko">자기 <em>소개</em></span></h2>
-    <div class="sec-rule"></div>
-  </div>
-  <div class="about-grid">
-    <div class="about-text">
-      <span class="en">
-        <p>I'm a sophomore at UW-Madison pursuing a double major in Data Science and Economics. I'm drawn to work at the intersection of quantitative analysis and real-world application — understanding why markets move, how data shapes decisions, and where the two fields reinforce each other.</p>
-        <p>My path to university wasn't linear. I started at Michigan State, made the Dean's List both semesters, then completed mandatory military service in the Republic of Korea Army before transferring to Madison. Along the way I've worked in e-commerce, operations, and education — each role teaching me something different about how organizations actually function.</p>
-        <p>I'm actively building my technical toolkit and looking for internship opportunities where I can contribute analytically while continuing to grow.</p>
-      </span>
-      <span class="ko">
-        <p>UW-Madison에서 Data Science와 Economics를 복수전공하고 있는 2학년입니다. 정량적 분석과 실제 비즈니스 문제의 교차점, 즉 시장이 왜 움직이는지, 데이터가 의사결정을 어떻게 바꾸는지에 관심이 많습니다.</p>
-        <p>Michigan State에서 시작해 두 학기 연속 Dean's List에 올랐고, 이후 UW-Madison으로 편입했습니다. 그 과정에서 이커머스, 운영, 교육 등 다양한 분야에서 일하며 조직이 실제로 어떻게 돌아가는지 배웠습니다.</p>
-        <p>현재 기술 역량을 꾸준히 키우며, 분석적으로 기여할 수 있는 인턴십 기회를 적극적으로 찾고 있습니다.</p>
-      </span>
-    </div>
-    <div class="fact-list">
-      <div class="fact-row">
-        <span class="fact-k"><span class="en">Status</span><span class="ko">상태</span></span>
-        <span class="fact-v"><span class="en">Sophomore · Open to Internships</span><span class="ko">2학년 · 인턴십 구직 중</span></span>
-      </div>
-      <div class="fact-row">
-        <span class="fact-k"><span class="en">Location</span><span class="ko">위치</span></span>
-        <span class="fact-v">Madison, WI</span>
-      </div>
-      <div class="fact-row">
-        <span class="fact-k"><span class="en">Languages</span><span class="ko">언어</span></span>
-        <span class="fact-v"><span class="en">Korean (Native) · English (Fluent)</span><span class="ko">한국어 (모국어) · 영어 (유창)</span></span>
-      </div>
-      <div class="fact-row">
-        <span class="fact-k"><span class="en">Interests</span><span class="ko">관심 분야</span></span>
-        <span class="fact-v"><span class="en">Data Analytics · Finance · Economics</span><span class="ko">데이터 분석 · 금융 · 경제학</span></span>
-      </div>
-      <div class="fact-row">
-        <span class="fact-k"><span class="en">Service</span><span class="ko">군복무</span></span>
-        <span class="fact-v"><span class="en">ROK Army, 2023–2025</span><span class="ko">대한민국 육군, 2023–2025</span></span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EDUCATION -->
-<section id="education">
-  <div class="sec-header">
-    <span class="sec-num">02</span>
-    <h2 class="sec-title"><span class="en">Education</span><span class="ko"><em>학력</em></span></h2>
-    <div class="sec-rule"></div>
-  </div>
-  <div class="tl">
-    <div class="tl-item">
-      <span class="tl-date"><span class="en">Spring 2026<br/>— Present</span><span class="ko">2026년 봄<br/>— 재학 중</span></span>
-      <div class="tl-body">
-        <h3>B.S. Data Science &amp; B.S. Economics</h3>
-        <p class="tl-org">University of Wisconsin-Madison</p>
-        <ul>
-          <li><span class="en">Double major combining economic theory with applied data science methods.</span><span class="ko">경제이론과 응용 Data Science를 결합한 복수전공.</span></li>
-          <li><span class="en">Coursework in machine learning, statistical computing, and data analysis.</span><span class="ko">머신러닝, 통계 컴퓨팅, 데이터 분석 수강.</span></li>
-          <li><span class="en">Member of Korean Business Student Association — weekly investment presentations and valuation analysis.</span><span class="ko">Korean Business Student Association (KBSA) 소속 — 매주 투자 발표 및 기업 가치평가 참여.</span></li>
-        </ul>
-        <div class="tags"><span class="tag">GPA 3.50</span><span class="tag">Data Science</span><span class="tag">Economics</span></div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <span class="tl-date"><span class="en">Fall 2022<br/>— Spring 2023</span><span class="ko">2022년 가을<br/>— 2023년 봄</span></span>
-      <div class="tl-body">
-        <h3>B.S. Economics</h3>
-        <p class="tl-org">Michigan State University</p>
-        <ul>
-          <li><span class="en">Dean's List both semesters (Fall 2022 &amp; Spring 2023).</span><span class="ko">두 학기 연속 Dean's List 선정 (Fall 2022, Spring 2023).</span></li>
-          <li><span class="en">Recipient of the Global Ambassador Grant (Jan 2022).</span><span class="ko">Global Ambassador Grant 수혜 (2022년 1월).</span></li>
-          <li><span class="en">Completed quantitative research in experimental data analysis.</span><span class="ko">실험 데이터 분석 정량 연구 수행.</span></li>
-        </ul>
-        <div class="tags"><span class="tag">GPA 3.75</span><span class="tag">Dean's List</span><span class="tag">Global Ambassador Grant</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="sec-header">
-    <span class="sec-num">03</span>
-    <h2 class="sec-title"><span class="en">Work <em>Experience</em></span><span class="ko">업무 <em>경력</em></span></h2>
-    <div class="sec-rule"></div>
-  </div>
-  <div class="tl">
-    <div class="tl-item">
-      <span class="tl-date"><span class="en">May 2026<br/>— Present</span><span class="ko">2026년 5월<br/>— 재직 중</span></span>
-      <div class="tl-body">
-        <h3><span class="en">Operations Assistant</span><span class="ko">운영 어시스턴트</span></h3>
-        <p class="tl-org">DesignJ</p>
-        <ul>
-          <li><span class="en">Supported furniture distribution and on-site installation for commercial clients including COMPOSE COFFEE.</span><span class="ko">COMPOSE COFFEE 등 상업 클라이언트의 가구 유통 및 현장 설치 지원.</span></li>
-          <li><span class="en">Assisted with B2B partnership projects and proposal development across multiple business platforms.</span><span class="ko">다수의 비즈니스 플랫폼에서 B2B 파트너십 프로젝트 및 제안서 개발 보조.</span></li>
-        </ul>
-        <div class="tags"><span class="tag">Operations</span><span class="tag">B2B</span><span class="tag">Logistics</span></div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <span class="tl-date"><span class="en">Jul – Dec 2025</span><span class="ko">2025년 7–12월</span></span>
-      <div class="tl-body">
-        <h3><span class="en">E-commerce Merchandiser</span><span class="ko">이커머스 머천다이저</span></h3>
-        <p class="tl-org">Barunhome Corp.</p>
-        <ul>
-          <li><span class="en">Expanded marketplace distribution through new platform onboarding, generating net-new revenue from zero.</span><span class="ko">신규 플랫폼 입점을 통해 마켓플레이스 판로를 확대하고 신규 매출 창출.</span></li>
-          <li><span class="en">Managed furniture category merchandising, assortment planning, and promotions to support sales performance.</span><span class="ko">가구 카테고리 상품 기획, 구성 관리, 프로모션 운영으로 매출 성과 지원.</span></li>
-        </ul>
-        <div class="tags"><span class="tag">E-commerce</span><span class="tag">Merchandising</span><span class="tag">Revenue Growth</span></div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <span class="tl-date"><span class="en">Jun – Dec 2023</span><span class="ko">2023년 6–12월</span></span>
-      <div class="tl-body">
-        <h3><span class="en">Teaching Assistant</span><span class="ko">교육 보조</span></h3>
-        <p class="tl-org">Ian's English Academy</p>
-        <ul>
-          <li><span class="en">Supported Grade 9–10 student success through individualized mentoring and academic progress tracking.</span><span class="ko">중3–고1 학생의 학업 성취를 위한 개인 멘토링 및 학습 진도 관리.</span></li>
-          <li><span class="en">Streamlined class logistics and grading processes, improving daily instructional efficiency.</span><span class="ko">수업 운영 및 채점 프로세스를 간소화해 일일 교육 효율 향상.</span></li>
-        </ul>
-        <div class="tags"><span class="tag">Mentoring</span><span class="tag">Education</span></div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <span class="tl-date"><span class="en">Jan – Apr 2023</span><span class="ko">2023년 1–4월</span></span>
-      <div class="tl-body">
-        <h3>Student Cook &amp; Receptionist</h3>
-        <p class="tl-org">MSU Culinary Service</p>
-        <ul>
-          <li><span class="en">Managed POS transactions and end-of-day financial reconciliation at Sparty Market.</span><span class="ko">Sparty Market에서 POS 결제 처리 및 마감 정산 관리.</span></li>
-          <li><span class="en">Optimized inventory restocking and prep workflows during peak campus hours.</span><span class="ko">피크 타임 재고 보충 및 준비 작업 프로세스 최적화.</span></li>
-        </ul>
-        <div class="tags"><span class="tag">Operations</span><span class="tag">Financial Reconciliation</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ACTIVITIES -->
-<section id="activities">
-  <div class="sec-header">
-    <span class="sec-num">04</span>
-    <h2 class="sec-title"><span class="en">Activities &amp; <em>Leadership</em></span><span class="ko">활동 &amp; <em>리더십</em></span></h2>
-    <div class="sec-rule"></div>
-  </div>
-  <div class="tl">
-    <div class="tl-item">
-      <span class="tl-date"><span class="en">Jan 2026<br/>— Present</span><span class="ko">2026년 1월<br/>— 활동 중</span></span>
-      <div class="tl-body">
-        <h3>Team Member</h3>
-        <p class="tl-org">Korean Business Student Association (KBSA) · UW-Madison</p>
-        <ul>
-          <li><span class="en">Conducted corporate valuation and KPI tracking through weekly investment presentations.</span><span class="ko">Weekly investment presentation을 통한 기업 가치평가 및 KPI 추적 수행.</span></li>
-          <li><span class="en">Developed a fintech turnaround proposal using fraud detection and risk segmentation strategies.</span><span class="ko">사기 탐지 및 리스크 세분화 전략을 활용한 fintech 기업 turnaround proposal 작성.</span></li>
-        </ul>
-        <div class="tags"><span class="tag">Valuation</span><span class="tag">Fintech</span><span class="tag">KPI Analysis</span></div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <span class="tl-date"><span class="en">Mar 2017<br/>— Dec 2025</span><span class="ko">2017년 3월<br/>— 2025년 12월</span></span>
-      <div class="tl-body">
-        <h3><span class="en">Team Leader</span><span class="ko">팀장</span></h3>
-        <p class="tl-org"><span class="en">Korean Catholic Scout Association</span><span class="ko">한국 가톨릭 스카우트 연맹</span></p>
-        <ul>
-          <li><span class="en">Contributed 60+ hours to wetland conservation with global teams; site received official Ramsar designation.</span><span class="ko">글로벌 팀과 함께 60시간 이상 습지 보전 활동 참여 — 해당 습지 람사르 공식 지정 기여.</span></li>
-          <li><span class="en">Directed JOTA-JOTI global events as operating agent and translator for international youth cultural exchanges.</span><span class="ko">JOTA-JOTI 글로벌 행사를 운영 요원 및 통역사로 주도, 국제 청소년 문화 교류 지원.</span></li>
-        </ul>
-        <div class="tags"><span class="tag">Leadership</span><span class="tag">Conservation</span><span class="tag">Global Events</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="sec-header">
-    <span class="sec-num">05</span>
-    <h2 class="sec-title"><span class="en">Skills &amp; <em>Tools</em></span><span class="ko">스킬 &amp; <em>도구</em></span></h2>
-    <div class="sec-rule"></div>
-  </div>
-  <div class="skills-grid">
-    <div class="skill-block">
-      <p class="skill-block-title"><span class="en">Statistical &amp; Quantitative</span><span class="ko">통계 &amp; 정량 분석</span></p>
-      <div class="skill-items">
-        <div>
-          <div class="skill-row"><span class="skill-name">R</span><span class="skill-level"><span class="en">Proficient</span><span class="ko">능숙</span></span></div>
-          <div class="skill-bar-wrap"><div class="skill-bar" style="width:78%"></div></div>
-        </div>
-        <div>
-          <div class="skill-row"><span class="skill-name"><span class="en">Hypothesis Testing</span><span class="ko">가설 검정</span></span><span class="skill-level"><span class="en">Proficient</span><span class="ko">능숙</span></span></div>
-          <div class="skill-bar-wrap"><div class="skill-bar" style="width:72%"></div></div>
-        </div>
-        <div>
-          <div class="skill-row"><span class="skill-name"><span class="en">Data Visualization</span><span class="ko">데이터 시각화</span></span><span class="skill-level"><span class="en">Proficient</span><span class="ko">능숙</span></span></div>
-          <div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div>
-        </div>
-        <div>
-          <div class="skill-row"><span class="skill-name">ggplot2 / R Markdown</span><span class="skill-level"><span class="en">Proficient</span><span class="ko">능숙</span></span></div>
-          <div class="skill-bar-wrap"><div class="skill-bar" style="width:74%"></div></div>
+  <main id="top">
+    <section class="shell hero" aria-label="Introduction">
+      <div>
+        <p class="eyebrow">Data Science + Economics / UW-Madison</p>
+        <h1>Joonghyuk Kim</h1>
+        <p class="hero-summary">
+          I am a UW-Madison student studying Data Science and Economics.
+          I am interested in analytics, finance, and the practical side of how businesses operate.
+        </p>
+        <div class="hero-copy">
+          <p>
+            My experience includes military service, e-commerce merchandising, operations,
+            teaching support, and student investment research.
+          </p>
+          <p>
+            I like using data to understand people, markets, and business decisions.
+          </p>
         </div>
       </div>
-    </div>
-    <div class="skill-block">
-      <p class="skill-block-title"><span class="en">Programming</span><span class="ko">프로그래밍</span></p>
-      <div class="skill-items">
-        <div>
-          <div class="skill-row"><span class="skill-name">Python</span><span class="skill-level"><span class="en">Familiar</span><span class="ko">기초</span></span></div>
-          <div class="skill-bar-wrap"><div class="skill-bar" style="width:52%"></div></div>
+
+    </section>
+
+    <section id="experience">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <h2>Experience</h2>
+          </div>
         </div>
-        <div>
-          <div class="skill-row"><span class="skill-name">Kotlin</span><span class="skill-level"><span class="en">Familiar</span><span class="ko">기초</span></span></div>
-          <div class="skill-bar-wrap"><div class="skill-bar" style="width:45%"></div></div>
+
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-date">May 2026 - Present</div>
+            <div>
+              <h3 class="timeline-title">Operations Assistant</h3>
+              <p class="timeline-org">Design J</p>
+              <ul class="timeline-list">
+                <li>Supported commercial furniture operations, including distribution coordination, on-site installation, and client-facing project support.</li>
+                <li>Assisted B2B partnership development through proposal preparation, platform research, and business communication support.</li>
+              </ul>
+              <div class="tag-row">
+                <span class="tag">Operations</span>
+                <span class="tag">B2B Projects</span>
+                <span class="tag">Proposal Support</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">Jul 2025 - Dec 2025</div>
+            <div>
+              <h3 class="timeline-title">E-commerce Merchandiser</h3>
+              <p class="timeline-org">Barunhome Corp.</p>
+              <ul class="timeline-list">
+                <li>Expanded marketplace revenue by onboarding new sales channels, coordinating platform promotions, and managing product-level sales operations.</li>
+                <li>Supported end-to-end furniture commerce operations across overseas supplier communication, customs clearance, inventory control, and logistics coordination.</li>
+              </ul>
+              <div class="tag-row">
+                <span class="tag">E-commerce</span>
+                <span class="tag">Marketplace Growth</span>
+                <span class="tag">Import & Customs</span>
+                <span class="tag">Logistics</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">Dec 2023 - Jun 2025</div>
+            <div>
+              <h3 class="timeline-title">Sergeant, Republic of Korea Army</h3>
+              <p class="timeline-org">11th Infantry Brigade</p>
+              <ul class="timeline-list">
+                <li>Completed mandatory military service as a sergeant with frontline training, security operations, and team-based field coordination experience.</li>
+                <li>Earned multiple commendations for performance, discipline, and operational contribution in a high-pressure military environment.</li>
+              </ul>
+              <div class="tag-row">
+                <span class="tag">Leadership</span>
+                <span class="tag">Discipline</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">Jun 2023 - Dec 2023</div>
+            <div>
+              <h3 class="timeline-title">Teaching Assistant</h3>
+              <p class="timeline-org">Ian's English Academy</p>
+              <ul class="timeline-list">
+                <li>Supported Grade 9-10 students through individualized mentoring and academic progress tracking.</li>
+                <li>Streamlined class logistics and grading workflows to improve daily instructional efficiency.</li>
+              </ul>
+              <div class="tag-row">
+                <span class="tag">Mentoring</span>
+                <span class="tag">Education</span>
+                <span class="tag">Communication</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-date">Jan 2023 - Apr 2023</div>
+            <div>
+              <h3 class="timeline-title">Student Cook & Receptionist</h3>
+              <p class="timeline-org">MSU Culinary Service</p>
+              <ul class="timeline-list">
+                <li>Managed POS transactions and end-of-day financial reconciliation at Sparty Market.</li>
+                <li>Supported inventory restocking and prep workflows during peak campus hours.</li>
+              </ul>
+              <div class="tag-row">
+                <span class="tag">Operations</span>
+                <span class="tag">POS</span>
+                <span class="tag">Reconciliation</span>
+              </div>
+            </div>
+          </article>
         </div>
-        <div>
-          <div class="skill-row"><span class="skill-name">SQL</span><span class="skill-level"><span class="en">Familiar</span><span class="ko">기초</span></span></div>
-          <div class="skill-bar-wrap"><div class="skill-bar" style="width:48%"></div></div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <h2>Projects</h2>
+          </div>
         </div>
-        <div>
-          <div class="skill-row"><span class="skill-name">Jupyter</span><span class="skill-level"><span class="en">Familiar</span><span class="ko">기초</span></span></div>
-          <div class="skill-bar-wrap"><div class="skill-bar" style="width:50%"></div></div>
+
+        <div class="card-grid">
+          <article class="card">
+            <div class="card-header">
+              <span class="card-type">Healthcare AI</span>
+              <time class="card-date">May 2026 - Present</time>
+            </div>
+            <h3>HERO Wearable Emergency Monitoring App</h3>
+            <p>
+              Built a wearable-based emergency monitoring concept for older adults in rural areas.
+            </p>
+            <details>
+              <summary>Details</summary>
+              <p>
+                Connected Galaxy Fit health signals, anomaly detection logic, AI voice calls, location data, and
+                emergency escalation workflows through Health Connect, Supabase, Twilio, Claude, Kakao Map, and
+                weather APIs.
+              </p>
+            </details>
+            <div class="tag-row">
+              <span class="tag">API Integration</span>
+              <span class="tag">Health Connect</span>
+              <span class="tag">Claude API</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-header">
+              <span class="card-type">Research Mentoring</span>
+              <time class="card-date">May 2026 - Present</time>
+            </div>
+            <h3>JHHS STEM Research Mentoring</h3>
+            <p>
+              Mentored a high school team on an RDKit-based molecular solubility project.
+            </p>
+            <details>
+              <summary>Details</summary>
+              <p>
+                Guided project scoping, descriptor-based data structuring, workflow design, and model evaluation for
+                an AI and chemistry research initiative.
+              </p>
+            </details>
+            <div class="tag-row">
+              <span class="tag">Python</span>
+              <span class="tag">RDKit</span>
+              <span class="tag">Mentoring</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-header">
+              <span class="card-type">Data Analysis</span>
+              <time class="card-date">Mar 2026 - Apr 2026</time>
+            </div>
+            <h3>Student Performance & Sleep Analysis</h3>
+            <p>
+              Analyzed how sleep duration and attendance relate to GPA across 10,000 records.
+            </p>
+            <details>
+              <summary>Details</summary>
+              <p>
+                Used R to clean the dataset, compare student groups, and interpret statistical patterns in academic
+                performance.
+              </p>
+            </details>
+            <div class="tag-row">
+              <span class="tag">R</span>
+              <span class="tag">Statistics</span>
+              <span class="tag">RStudio</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-header">
+              <span class="card-type">Finance Strategy</span>
+              <time class="card-date">Jan 2026 - Present</time>
+            </div>
+            <h3>Fintech Turnaround Proposal</h3>
+            <p>
+              Developed a turnaround strategy for a distressed fintech firm.
+            </p>
+            <details>
+              <summary>Details</summary>
+              <p>
+                Analyzed risk segments, fraud exposure, valuation assumptions, and operational KPIs to shape a
+                recovery strategy and investment-style recommendation.
+              </p>
+            </details>
+            <div class="tag-row">
+              <span class="tag">Fintech</span>
+              <span class="tag">Risk</span>
+              <span class="tag">Valuation</span>
+            </div>
+          </article>
+
         </div>
       </div>
-    </div>
-    <div class="skill-block">
-      <p class="skill-block-title"><span class="en">Business &amp; Productivity</span><span class="ko">비즈니스 &amp; 생산성</span></p>
-      <div class="skill-items">
-        <div>
-          <div class="skill-row"><span class="skill-name"><span class="en">Financial Modelling (Excel)</span><span class="ko">재무 모델링 (Excel)</span></span><span class="skill-level"><span class="en">Proficient</span><span class="ko">능숙</span></span></div>
-          <div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div>
+    </section>
+
+    <section id="skills">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <h2>Skills</h2>
+          </div>
         </div>
-        <div>
-          <div class="skill-row"><span class="skill-name"><span class="en">Data Presentation (PPT)</span><span class="ko">데이터 발표 (PPT)</span></span><span class="skill-level"><span class="en">Proficient</span><span class="ko">능숙</span></span></div>
-          <div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div>
+
+        <div class="skills-grid">
+          <div class="skill-column">
+            <h3>Data & Analytics</h3>
+            <ul>
+              <li>R</li>
+              <li>SQL</li>
+              <li>Statistical Analysis</li>
+              <li>Data Visualization</li>
+              <li>Excel Modeling</li>
+            </ul>
+          </div>
+          <div class="skill-column">
+            <h3>Programming</h3>
+            <ul>
+              <li>Python</li>
+              <li>TypeScript</li>
+              <li>GitHub</li>
+            </ul>
+          </div>
+          <div class="skill-column">
+            <h3>Business Operations</h3>
+            <ul>
+              <li>Marketplace Operations</li>
+              <li>Inventory & Logistics</li>
+              <li>Import & Customs</li>
+              <li>Sales Performance Tracking</li>
+            </ul>
+          </div>
+          <div class="skill-column">
+            <h3>Platforms & APIs</h3>
+            <ul>
+              <li>Supabase</li>
+              <li>API Integration</li>
+              <li>Twilio API</li>
+              <li>Claude API</li>
+              <li>Kakao Map API</li>
+            </ul>
+          </div>
         </div>
-        <div>
-          <div class="skill-row"><span class="skill-name">Google Workspace</span><span class="skill-level"><span class="en">Proficient</span><span class="ko">능숙</span></span></div>
-          <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
+
+        <div class="certificate-list" aria-label="Certificates and simulations">
+          <span class="tag">Google AI Essentials</span>
+          <span class="tag">Google Advanced Data Analytics</span>
+          <span class="tag">Mastercard Advisors & Consulting Services Simulation</span>
+          <span class="tag">Quantium Data Analytics Simulation</span>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="cert-row">
-    <span class="cert-pill">Google AI Essentials</span>
-    <span class="cert-pill">Google Advanced Data Analytics</span>
-    <span class="cert-pill">Mastercard Consulting Simulation</span>
-    <span class="cert-pill">Quantium Data Analytics</span>
-  </div>
-</section>
+    </section>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="sec-header">
-    <span class="sec-num">06</span>
-    <h2 class="sec-title"><span class="en">Selected <em>Projects</em></span><span class="ko">주요 <em>프로젝트</em></span></h2>
-    <div class="sec-rule"></div>
-  </div>
-  <div class="proj-grid">
-    <div class="proj-card">
-      <p class="proj-num">01 · May 2026 – Present</p>
-      <h3>HERO — AI Emergency Monitoring App</h3>
-      <p>
-        <span class="en">Developed API integrations for an AI-based rural emergency platform using Kakao Map API and weather services. Built to improve emergency response accessibility for older adults in underserved areas.</span>
-        <span class="ko">카카오맵 API 및 기상 서비스를 활용한 농촌 지역 AI 기반 응급 플랫폼의 API 연동 개발. 의료 접근성이 낮은 지역 어르신들의 긴급 대응을 개선하기 위해 구축.</span>
-      </p>
-      <div class="tags"><span class="tag">Kotlin</span><span class="tag">API Integration</span><span class="tag">AI</span></div>
-    </div>
-    <div class="proj-card">
-      <p class="proj-num">02 · 2026</p>
-      <h3><span class="en">Wearable Healthcare Monitoring</span><span class="ko">웨어러블 헬스케어 모니터링</span></h3>
-      <p>
-        <span class="en">Contributed to a wearable healthcare monitoring project utilizing AI voice calls and real-time anomaly detection to flag health irregularities proactively.</span>
-        <span class="ko">AI 음성 통화 및 실시간 이상 탐지를 활용한 웨어러블 헬스케어 모니터링 프로젝트에 기여. 건강 이상 징후를 사전에 감지하는 시스템 개발.</span>
-      </p>
-      <div class="tags"><span class="tag">AI</span><span class="tag">Anomaly Detection</span><span class="tag">Healthcare</span></div>
-    </div>
-    <div class="proj-card">
-      <p class="proj-num">03 · May 2026 – Present</p>
-      <h3>JHHS STEM Research Mentoring</h3>
-      <p>
-        <span class="en">Mentored a high school team on an RDKit-based molecular solubility analysis project. Guided project scoping, descriptor-based data structuring, and model evaluation for an AI/chemistry research initiative.</span>
-        <span class="ko">고등학생 팀에게 RDKit 기반 분자 용해도 분석 프로젝트를 멘토링. AI/화학 연구의 프로젝트 범위 설정, 데이터 구조화, 모델 평가 지도.</span>
-      </p>
-      <div class="tags"><span class="tag">Python</span><span class="tag">RDKit</span><span class="tag">Research Mentoring</span></div>
-    </div>
-    <div class="proj-card">
-      <p class="proj-num">04 · Mar – Apr 2026</p>
-      <h3><span class="en">Student Performance &amp; Sleep Analysis</span><span class="ko">수면과 학업 성취도 분석</span></h3>
-      <p>
-        <span class="en">Analyzed 10,000 student records to examine relationships between sleep duration, attendance, and GPA. Used R for hypothesis testing, trend visualization, and statistical interpretation.</span>
-        <span class="ko">학생 1만 명의 데이터를 분석해 수면 시간, 출석률, GPA 간 관계를 탐구. R을 활용해 가설 검정, 추세 시각화, 통계 해석 수행.</span>
-      </p>
-      <div class="tags"><span class="tag">R</span><span class="tag">Hypothesis Testing</span><span class="tag">10k Records</span></div>
-    </div>
-    <div class="proj-card">
-      <p class="proj-num">05 · Jan – May 2023</p>
-      <h3><span class="en">Quantitative Research: Lamp Brightness Study</span><span class="ko">정량 연구: 조도 실험 분석</span></h3>
-      <p>
-        <span class="en">Collected repeated lux measurements across three lamp types; calculated mean brightness and standard error. Visualized results to identify LED bulb type as the likely differentiating factor.</span>
-        <span class="ko">세 종류 전구의 반복 조도(lux) 측정값을 수집, 평균 밝기와 표준오차 산출. 결과 시각화를 통해 LED 전구 유형이 밝기 차이의 주요 요인임을 확인.</span>
-      </p>
-      <div class="tags"><span class="tag">R</span><span class="tag">Experimental Design</span><span class="tag">Statistics</span></div>
-    </div>
-    <div class="proj-card">
-      <p class="proj-num">06 · KBSA · 2026</p>
-      <h3><span class="en">Fintech Turnaround Proposal</span><span class="ko">Fintech 기업 Turnaround Proposal</span></h3>
-      <p>
-        <span class="en">Developed a corporate turnaround strategy for a distressed fintech firm, applying fraud detection analysis and risk segmentation. Presented findings in weekly investment pitch format.</span>
-        <span class="ko">부실 fintech 기업을 대상으로 사기 탐지 분석 및 리스크 세분화를 적용한 turnaround 전략 수립. 매주 투자 발표 형식으로 결과 공유.</span>
-      </p>
-      <div class="tags"><span class="tag">Fintech</span><span class="tag">Risk Analysis</span><span class="tag">Valuation</span></div>
-    </div>
-  </div>
-</section>
+    <section id="awards">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <h2>Honors</h2>
+          </div>
+        </div>
 
-<!-- AWARDS -->
-<section id="awards">
-  <div class="sec-header">
-    <span class="sec-num">07</span>
-    <h2 class="sec-title"><span class="en">Honors &amp; <em>Awards</em></span><span class="ko">수상 &amp; <em>표창</em></span></h2>
-    <div class="sec-rule"></div>
-  </div>
-  <div class="award-list">
-    <div class="award-item">
-      <span class="award-date"><span class="en">Feb 2025</span><span class="ko">2025년 2월</span></span>
-      <div class="award-body">
-        <span class="en">Excellence Award in Frontline Pre-Deployment Training<span>11th Infantry Brigade · Republic of Korea Army</span></span>
-        <span class="ko">GOP 투입 전 유공<span>대한민국 육군 제11보병여단</span></span>
+        <div class="awards-list">
+          <div class="award">
+            <div class="award-date">Feb 15, 2025</div>
+            <div>
+              <strong>Excellence Award in Frontline Pre-Deployment Training</strong>
+              <span class="award-source">11th Infantry Brigade</span>
+            </div>
+          </div>
+          <div class="award">
+            <div class="award-date">Jan 18, 2025 / Oct 26, 2024</div>
+            <div>
+              <strong>2x Military Operations Merit Award</strong>
+              <span class="award-source">ROK Army, 3rd Battalion, 11th Infantry Brigade</span>
+            </div>
+          </div>
+          <div class="award">
+            <div class="award-date">Fall 2022 & Spring 2023</div>
+            <div>
+              <strong>Dean&rsquo;s List</strong>
+              <span class="award-source">Michigan State University</span>
+            </div>
+          </div>
+          <div class="award">
+            <div class="award-date">Jan 14, 2022</div>
+            <div>
+              <strong>Global Ambassador Grant</strong>
+              <span class="award-source">Michigan State University</span>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="award-item">
-      <span class="award-date"><span class="en">Jan 2025 · Oct 2024</span><span class="ko">2025년 1월 · 2024년 10월</span></span>
-      <div class="award-body">
-        <span class="en">2× Military Operations Merit Award<span>3rd Battalion, 11th Infantry Brigade · ROK Army</span></span>
-        <span class="ko">GOP 경계작전 유공 2회<span>대한민국 육군 제11보병여단 3대대</span></span>
-      </div>
-    </div>
-    <div class="award-item">
-      <span class="award-date"><span class="en">Spring 2023</span><span class="ko">2023년 봄</span></span>
-      <div class="award-body">
-        <span class="en">Dean's List<span>Michigan State University</span></span>
-        <span class="ko">Dean's List<span>Michigan State University</span></span>
-      </div>
-    </div>
-    <div class="award-item">
-      <span class="award-date"><span class="en">Fall 2022</span><span class="ko">2022년 가을</span></span>
-      <div class="award-body">
-        <span class="en">Dean's List<span>Michigan State University</span></span>
-        <span class="ko">Dean's List<span>Michigan State University</span></span>
-      </div>
-    </div>
-    <div class="award-item">
-      <span class="award-date"><span class="en">Jan 2022</span><span class="ko">2022년 1월</span></span>
-      <div class="award-body">
-        Global Ambassador Grant<span>Michigan State University</span>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="sec-header">
-    <span class="sec-num">08</span>
-    <h2 class="sec-title">Contact</h2>
-    <div class="sec-rule"></div>
-  </div>
-  <div class="contact-inner">
-    <div class="contact-left">
-      <h2><span class="en">Let's<br/><em>connect</em></span><span class="ko">함께<br/><em>이야기해요</em></span></h2>
-      <p>
-        <span class="en">Open to internship opportunities in data analytics, finance, or business operations. Comfortable working in Korean or English environments.</span>
-        <span class="ko">데이터 분석, 금융, 비즈니스 운영 분야의 인턴십 기회에 열려 있습니다. 한국어·영어 환경 모두 가능합니다.</span>
-      </p>
+    <section id="contact" class="contact">
+      <div class="shell">
+        <div class="contact-panel">
+          <div>
+            <h2>Contact</h2>
+          </div>
+          <div class="contact-links">
+            <div class="contact-link">
+              <span>Email</span>
+              <a href="mailto:jkim2245@wisc.edu">jkim2245@wisc.edu</a>
+            </div>
+            <div class="contact-link">
+              <span>LinkedIn</span>
+              <a href="https://linkedin.com/in/jkim618" target="_blank" rel="noreferrer">linkedin.com/in/jkim618</a>
+            </div>
+            <div class="contact-link">
+              <span>GitHub</span>
+              <a href="https://github.com/jzikim" target="_blank" rel="noreferrer">github.com/jzikim</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <span>(c) 2026 Joonghyuk Kim</span>
+      <span>Data Science & Economics / UW-Madison</span>
     </div>
-    <div class="contact-right">
-      <div class="contact-row">
-        <span class="contact-k">Email</span>
-        <a href="mailto:kjh20099567@gmail.com" class="contact-v">kjh20099567@gmail.com</a>
-      </div>
-      <div class="contact-row">
-        <span class="contact-k">LinkedIn</span>
-        <a href="https://linkedin.com/in/jkim618" target="_blank" class="contact-v">linkedin.com/in/jkim618</a>
-      </div>
-      <div class="contact-row">
-        <span class="contact-k">GitHub</span>
-        <a href="https://github.com/jzikim" target="_blank" class="contact-v">github.com/jzikim</a>
-      </div>
-      <div class="contact-row">
-        <span class="contact-k"><span class="en">Phone (KR)</span><span class="ko">전화 (한국)</span></span>
-        <a href="tel:+821020099567" class="contact-v">+82 10-2009-9567</a>
-      </div>
-      <div class="contact-row">
-        <span class="contact-k"><span class="en">Phone (US)</span><span class="ko">전화 (미국)</span></span>
-        <a href="tel:+16082091541" class="contact-v">+1 (608) 209-1541</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-</div>
-
-<footer>
-  <span>© 2025 Joonghyuk Kim</span>
-  <span>Data Science &amp; Economics · UW-Madison</span>
-</footer>
-
-<script>
-  const btn = document.getElementById('langToggle');
-  let isKo = false;
-  btn.addEventListener('click', () => {
-    isKo = !isKo;
-    document.body.classList.toggle('lang-ko', isKo);
-    btn.textContent = isKo ? 'English' : '한국어';
-  });
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      e.target.parentElement.querySelectorAll('.tl-item, .proj-card, .award-item')
-        .forEach((el, i) => setTimeout(() => el.classList.add('visible'), i * 80));
-      io.unobserve(e.target);
-    });
-  }, { threshold: 0.06 });
-
-  document.querySelectorAll('.tl-item, .proj-card, .award-item').forEach(el => io.observe(el));
-</script>
+  </footer>
 </body>
 </html>
