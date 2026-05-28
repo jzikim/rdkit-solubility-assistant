@@ -59,6 +59,10 @@
       scroll-behavior: smooth;
     }
 
+    [hidden] {
+      display: none !important;
+    }
+
     body {
       margin: 0;
       background:
@@ -139,7 +143,14 @@
       color: var(--accent);
     }
 
+    .nav-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .nav-action,
+    .language-toggle,
     .button {
       display: inline-flex;
       align-items: center;
@@ -156,10 +167,17 @@
     }
 
     .nav-action:hover,
+    .language-toggle:hover,
     .button:hover {
       transform: translateY(-1px);
       background: var(--accent-strong);
       border-color: var(--accent-strong);
+    }
+
+    .language-toggle {
+      min-width: 64px;
+      cursor: pointer;
+      font-family: var(--mono);
     }
 
     .button.secondary {
@@ -717,7 +735,10 @@
         <li><a href="#awards">Honors</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <a class="nav-action" href="assets/Joonghyuk-Kim-Resume-2026.pdf" target="_blank" rel="noreferrer">Resume</a>
+      <div class="nav-actions">
+        <a class="nav-action" href="assets/Joonghyuk-Kim-Resume-2026.pdf" target="_blank" rel="noreferrer">Resume</a>
+        <button class="language-toggle" type="button" aria-label="Switch to Korean">KR</button>
+      </div>
     </div>
   </header>
 
@@ -1075,5 +1096,165 @@
       <span>Data Science & Economics / UW-Madison</span>
     </div>
   </footer>
+  <script>
+    const languageToggle = document.querySelector(".language-toggle");
+
+    const koreanText = {
+      ".brand span:last-child": "김중혁",
+      ".nav-links li:nth-child(1) a": "Experience",
+      ".nav-links li:nth-child(2) a": "Projects",
+      ".nav-links li:nth-child(3) a": "Skills",
+      ".nav-links li:nth-child(4) a": "Honors",
+      ".nav-links li:nth-child(5) a": "Contact",
+      ".nav-action": "Resume",
+      ".eyebrow": "데이터 사이언스 + 경제학 / UW–Madison",
+      "h1": "김중혁",
+      ".hero-summary": "UW–Madison에서 데이터 사이언스와 경제학을 공부하고 있음. 데이터 분석을 통해 시장, 소비자, 그리고 비즈니스 의사결정을 이해하는 데 관심이 있음.",
+      ".hero-copy p:nth-child(1)": "E커머스 MD, 운영 지원, 교육 보조, 학생 투자 리서치 경험을 바탕으로 데이터와 실제 비즈니스가 만나는 지점에 관심을 키워옴.",
+      ".hero-copy p:nth-child(2)": "",
+      "#experience h2": "Experience",
+      ".timeline-item:nth-child(1) .timeline-date": "May 2026 – Present",
+      ".timeline-item:nth-child(1) .timeline-title": "운영 어시스턴트",
+      ".timeline-item:nth-child(1) .timeline-org": "주)디자인제이",
+      ".timeline-item:nth-child(1) .timeline-list li:nth-child(1)": "상업용 가구 프로젝트의 유통 조율, 현장 설치, 고객 응대 및 운영 업무를 지원함.",
+      ".timeline-item:nth-child(1) .timeline-list li:nth-child(2)": "제안서 준비, 플랫폼 리서치, 비즈니스 커뮤니케이션을 통해 B2B 파트너십 개발을 보조함.",
+      ".timeline-item:nth-child(1) .tag:nth-child(1)": "운영",
+      ".timeline-item:nth-child(1) .tag:nth-child(2)": "B2B 프로젝트",
+      ".timeline-item:nth-child(1) .tag:nth-child(3)": "제안서 지원",
+      ".timeline-item:nth-child(2) .timeline-date": "Jul 2025 – Dec 2025",
+      ".timeline-item:nth-child(2) .timeline-title": "E커머스 MD",
+      ".timeline-item:nth-child(2) .timeline-org": "주)바른홈",
+      ".timeline-item:nth-child(2) .timeline-list li:nth-child(1)": "신규 판매 채널 입점, 플랫폼 프로모션 조율, 상품 운영 관리를 통해 마켓플레이스 매출 확대를 지원함.",
+      ".timeline-item:nth-child(2) .timeline-list li:nth-child(2)": "해외 공급업체 커뮤니케이션, 통관, 재고 관리, 물류 조율 등 가구 E커머스 운영 전반을 담당함.",
+      ".timeline-item:nth-child(2) .tag:nth-child(1)": "E커머스",
+      ".timeline-item:nth-child(2) .tag:nth-child(2)": "마켓플레이스 운영",
+      ".timeline-item:nth-child(2) .tag:nth-child(3)": "수입 및 물류",
+      ".timeline-item:nth-child(2) .tag:nth-child(4)": "공급",
+      ".timeline-item:nth-child(4) .timeline-date": "Jun 2023 – Dec 2023",
+      ".timeline-item:nth-child(4) .timeline-title": "교육 보조",
+      ".timeline-item:nth-child(4) .timeline-org": "이안의학원",
+      ".timeline-item:nth-child(4) .timeline-list li:nth-child(1)": "9–10학년 학생들을 대상으로 영어 수업 보조, 개별 피드백, 학습 관리를 지원함.",
+      ".timeline-item:nth-child(4) .timeline-list li:nth-child(2)": "수업 준비, 과제 확인, 채점 보조를 통해 일일 수업 운영을 도움.",
+      ".timeline-item:nth-child(4) .tag:nth-child(1)": "멘토링",
+      ".timeline-item:nth-child(4) .tag:nth-child(2)": "교육",
+      ".timeline-item:nth-child(4) .tag:nth-child(3)": "커뮤니케이션",
+      ".timeline-item:nth-child(5) .timeline-date": "Jan 2023 – Apr 2023",
+      ".timeline-item:nth-child(5) .timeline-title": "학생 조리 및 리셉션 직원",
+      ".timeline-item:nth-child(5) .timeline-org": "MSU CULINARY SERVICE",
+      ".timeline-item:nth-child(5) .timeline-list li:nth-child(1)": "Sparty Market에서 POS 결제, 마감 정산, 고객 응대 업무를 담당함.",
+      ".timeline-item:nth-child(5) .timeline-list li:nth-child(2)": "피크 시간대 재고 보충과 식음료 준비 업무를 지원함.",
+      ".timeline-item:nth-child(5) .tag:nth-child(1)": "운영",
+      ".timeline-item:nth-child(5) .tag:nth-child(2)": "POS",
+      ".timeline-item:nth-child(5) .tag:nth-child(3)": "접객",
+      "#projects h2": "Projects",
+      ".card:nth-child(1) .card-type": "헬스케어 AI",
+      ".card:nth-child(1) .card-date": "May 2026 – Present",
+      ".card:nth-child(1) h3": "HERO 웨어러블 응급 모니터링 앱",
+      ".card:nth-child(1) > p": "농촌 지역 고령자를 위한 웨어러블 기반 응급 모니터링 콘셉트를 구축함.",
+      ".card:nth-child(1) summary": "상세",
+      ".card:nth-child(1) details p": "Galaxy Fit 건강 신호, 이상 감지 로직, AI 음성 통화, 위치 데이터, 응급 단계별 대응 흐름을 Health Connect, Supabase, Twilio, Claude, Kakao Map, 날씨 API와 연결함.",
+      ".card:nth-child(1) .tag:nth-child(1)": "API 연동",
+      ".card:nth-child(1) .tag:nth-child(3)": "Claude API",
+      ".card:nth-child(2) .card-type": "리서치 멘토링",
+      ".card:nth-child(2) .card-date": "May 2026 – Present",
+      ".card:nth-child(2) h3": "JHHS STEM 리서치 멘토링",
+      ".card:nth-child(2) > p": "고등학생 팀의 RDKit 기반 분자 용해도 프로젝트를 멘토링함.",
+      ".card:nth-child(2) summary": "상세",
+      ".card:nth-child(2) details p": "AI 및 화학 리서치 프로젝트를 위해 프로젝트 범위 설정, descriptor 기반 데이터 구조화, 워크플로 설계, 모델 평가를 지도함.",
+      ".card:nth-child(2) .tag:nth-child(3)": "멘토링",
+      ".card:nth-child(3) .card-type": "데이터 분석",
+      ".card:nth-child(3) .card-date": "Mar 2026 – Apr 2026",
+      ".card:nth-child(3) h3": "학생 성과 및 수면 분석",
+      ".card:nth-child(3) > p": "10,000개 기록을 바탕으로 수면 시간과 출석률이 GPA와 어떻게 관련되는지 분석함.",
+      ".card:nth-child(3) summary": "상세",
+      ".card:nth-child(3) details p": "R을 사용해 데이터를 정리하고 학생 그룹을 비교하며 학업 성과의 통계적 패턴을 해석함.",
+      ".card:nth-child(3) .tag:nth-child(2)": "통계",
+      ".card:nth-child(4) .card-type": "금융 전략",
+      ".card:nth-child(4) .card-date": "Jan 2026 – Present",
+      ".card:nth-child(4) h3": "핀테크 턴어라운드 제안",
+      ".card:nth-child(4) > p": "어려움을 겪는 핀테크 기업을 위한 턴어라운드 전략을 개발함.",
+      ".card:nth-child(4) summary": "상세",
+      ".card:nth-child(4) details p": "리스크 세그먼트, 사기 노출, 밸류에이션 가정, 운영 KPI를 분석해 회복 전략과 투자 관점의 제안을 구성함.",
+      ".card:nth-child(4) .tag:nth-child(2)": "리스크",
+      ".card:nth-child(4) .tag:nth-child(3)": "밸류에이션",
+      "#skills h2": "Skills",
+      ".skill-column:nth-child(1) h3": "데이터 및 분석",
+      ".skill-column:nth-child(1) li:nth-child(3)": "통계 분석",
+      ".skill-column:nth-child(1) li:nth-child(4)": "데이터 시각화",
+      ".skill-column:nth-child(1) li:nth-child(5)": "Excel 모델링",
+      ".skill-column:nth-child(2) h3": "프로그래밍",
+      ".skill-column:nth-child(3) h3": "비즈니스 운영",
+      ".skill-column:nth-child(3) li:nth-child(1)": "마켓플레이스 운영",
+      ".skill-column:nth-child(3) li:nth-child(2)": "재고 및 물류",
+      ".skill-column:nth-child(3) li:nth-child(3)": "수입 및 통관",
+      ".skill-column:nth-child(3) li:nth-child(4)": "판매 성과 추적",
+      ".skill-column:nth-child(4) h3": "플랫폼 및 API",
+      ".skill-column:nth-child(4) li:nth-child(2)": "API 연동",
+      ".certificate-list .tag:nth-child(1)": "Google AI Essentials",
+      ".certificate-list .tag:nth-child(2)": "Google Advanced Data Analytics",
+      ".certificate-list .tag:nth-child(3)": "Mastercard Advisors & Consulting Services Simulation",
+      ".certificate-list .tag:nth-child(4)": "Quantium Data Analytics Simulation",
+      "#awards h2": "Honors",
+      ".award:nth-child(1) .award-date": "Feb 15, 2025",
+      ".award:nth-child(1) strong": "GOP 투입 전 교육 우수",
+      ".award:nth-child(1) .award-source": "11보병여단",
+      ".award:nth-child(2) .award-date": "Jan 18, 2025 / Oct 26, 2024",
+      ".award:nth-child(2) strong": "GOP 경계작전 유공 2회",
+      ".award:nth-child(2) .award-source": "11보병여단",
+      ".award:nth-child(3) .award-date": "Fall 2022 & Spring 2023",
+      ".award:nth-child(3) strong": "Dean's List",
+      ".award:nth-child(4) .award-date": "Jan 14, 2022",
+      ".award:nth-child(4) strong": "Global Ambassador Grant",
+      "#contact h2": "Contact",
+      ".contact-link:nth-child(1) span": "Email",
+      ".footer-inner span:nth-child(2)": "Data Science & Economics / UW–Madison"
+    };
+
+    const koreanHiddenSelectors = [
+      ".hero-copy p:nth-child(2)",
+      ".timeline-item:nth-child(3)"
+    ];
+
+    const originalText = new Map();
+    Object.keys(koreanText).forEach((selector) => {
+      const element = document.querySelector(selector);
+      if (element) {
+        originalText.set(selector, element.textContent);
+      }
+    });
+
+    function setLanguage(language) {
+      const isKorean = language === "ko";
+      Object.entries(koreanText).forEach(([selector, text]) => {
+        const element = document.querySelector(selector);
+        if (element) {
+          element.textContent = isKorean ? text : originalText.get(selector);
+        }
+      });
+
+      koreanHiddenSelectors.forEach((selector) => {
+        const element = document.querySelector(selector);
+        if (element) {
+          element.hidden = isKorean;
+        }
+      });
+
+      document.documentElement.lang = isKorean ? "ko" : "en";
+      document.title = isKorean
+        ? "김중혁 | 데이터 사이언스 & 경제학"
+        : "Joonghyuk Kim | Data Science & Economics";
+      languageToggle.textContent = isKorean ? "EN" : "KR";
+      languageToggle.setAttribute("aria-label", isKorean ? "Switch to English" : "Switch to Korean");
+      localStorage.setItem("preferredLanguage", language);
+    }
+
+    languageToggle.addEventListener("click", () => {
+      setLanguage(document.documentElement.lang === "ko" ? "en" : "ko");
+    });
+
+    if (localStorage.getItem("preferredLanguage") === "ko") {
+      setLanguage("ko");
+    }
+  </script>
 </body>
 </html>
