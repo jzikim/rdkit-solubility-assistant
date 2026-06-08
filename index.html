@@ -193,11 +193,11 @@
     }
 
     .hero {
-      min-height: calc(100vh - 72px);
+      min-height: auto;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 92px 0 78px;
+      padding: 92px 0 72px;
       text-align: center;
     }
 
@@ -242,6 +242,10 @@
     section {
       padding: 78px 0;
       border-top: 1px solid var(--border);
+    }
+
+    #experience {
+      border-top: 0;
     }
 
     .section-heading {
@@ -1115,7 +1119,7 @@
       ".hero-copy p:nth-child(2)": "",
       "#experience h2": "Experience",
       ".timeline-item:nth-child(1) .timeline-date": "May 2026 – Present",
-      ".timeline-item:nth-child(1) .timeline-title": "Operations Assistant",
+      ".timeline-item:nth-child(1) .timeline-title": "프로젝트 운영 지원 인턴",
       ".timeline-item:nth-child(1) .timeline-org": "주)디자인제이",
       ".timeline-item:nth-child(1) .timeline-list li:nth-child(1)": "상업 공간 가구 납품 프로젝트 배송 조율, 현장 설치 지원, 고객사 커뮤니케이션 등 운영 전반 보조",
       ".timeline-item:nth-child(1) .timeline-list li:nth-child(2)": "B2B 제안서 작성, 플랫폼 리서치, 파트너사 커뮤니케이션을 통한 신규 납품 기회 발굴 지원",
@@ -1123,7 +1127,7 @@
       ".timeline-item:nth-child(1) .tag:nth-child(2)": "B2B 프로젝트",
       ".timeline-item:nth-child(1) .tag:nth-child(3)": "제안서 지원",
       ".timeline-item:nth-child(2) .timeline-date": "Jul 2025 – Dec 2025",
-      ".timeline-item:nth-child(2) .timeline-title": "E-commerce Merchandiser",
+      ".timeline-item:nth-child(2) .timeline-title": "이커머스 MD",
       ".timeline-item:nth-child(2) .timeline-org": "주)바른홈",
       ".timeline-item:nth-child(2) .timeline-list li:nth-child(1)": "신규 판매 채널 입점, 플랫폼 프로모션 운영, 상품 단위 판매 관리를 통한 온라인 마켓플레이스 매출 확대 기여",
       ".timeline-item:nth-child(2) .timeline-list li:nth-child(2)": "해외 공급처 커뮤니케이션, 수입 통관, 재고 관리, 물류 조율 등 가구 이커머스 운영 전반 담당",
@@ -1139,7 +1143,7 @@
       ".timeline-item:nth-child(3) .tag:nth-child(1)": "리더십",
       ".timeline-item:nth-child(3) .tag:nth-child(2)": "조직 기여",
       ".timeline-item:nth-child(4) .timeline-date": "Jun 2023 – Dec 2023",
-      ".timeline-item:nth-child(4) .timeline-title": "Teaching Assistant",
+      ".timeline-item:nth-child(4) .timeline-title": "학원 조교",
       ".timeline-item:nth-child(4) .timeline-org": "이안의학원",
       ".timeline-item:nth-child(4) .timeline-list li:nth-child(1)": "9–10학년 대상 영어 수업 보조, 개별 피드백, 학습 관리 지원",
       ".timeline-item:nth-child(4) .timeline-list li:nth-child(2)": "수업 준비, 과제 확인, 채점 보조 등 일일 수업 운영 보조",
@@ -1220,7 +1224,8 @@
 
     const koreanHiddenSelectors = [
       ".hero-copy p:nth-child(1)",
-      ".hero-copy p:nth-child(2)"
+      ".hero-copy p:nth-child(2)",
+      ".timeline-item:nth-child(3)"
     ];
 
     const originalText = new Map();
