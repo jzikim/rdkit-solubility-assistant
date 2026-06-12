@@ -5,7 +5,6 @@ import pubchempy as pcp
 import streamlit as st
 from rdkit import Chem
 from rdkit.Chem import Crippen, Descriptors, Lipinski, rdMolDescriptors
-from rdkit.Chem import Draw
 
 try:
     from google import genai
@@ -76,16 +75,6 @@ def calculate_rdkit_descriptors(smiles):
         "H-bond Acceptors": Lipinski.NumHAcceptors(molecule),
         "Rotatable Bonds": Lipinski.NumRotatableBonds(molecule),
     }
-
-
-def draw_molecule(smiles):
-    """Create a 2D molecule image from SMILES."""
-    molecule = Chem.MolFromSmiles(smiles)
-
-    if molecule is None:
-        return None
-
-    return Draw.MolToImage(molecule, size=(420, 320))
 
 
 def calculate_risk_score(drug_name, descriptors):
@@ -350,14 +339,13 @@ def main():
     info_col3.metric("PubChem MW", compound_info["pubchem_molecular_weight"] or "N/A")
 
     structure_col, smiles_col = st.columns([1, 1.3])
-    molecule_image = draw_molecule(compound_info["canonical_smiles"])
-
     with structure_col:
         st.subheader("Molecular Structure")
-        if molecule_image:
-            st.image(molecule_image, caption="RDKit 2D structure")
-        else:
-            st.info("분자 구조 이미지를 생성하지 못했습니다.")
+        pubchem_image_url = (
+            "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/"
+            f"cid/{compound_info['cid']}/PNG"
+        )
+        st.image(pubchem_image_url, caption="PubChem 2D structure")
 
     with smiles_col:
         st.subheader("Canonical SMILES")
