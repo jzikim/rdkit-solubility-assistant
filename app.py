@@ -5,6 +5,7 @@ import pubchempy as pcp
 import streamlit as st
 from rdkit import Chem
 from rdkit.Chem import Crippen, Descriptors, Lipinski, rdMolDescriptors
+from rdkit.Chem import Draw
 
 try:
     from google import genai
@@ -77,6 +78,16 @@ def calculate_rdkit_descriptors(smiles):
     }
 
 
+def draw_molecule(smiles):
+    """Create a 2D molecule image from SMILES."""
+    molecule = Chem.MolFromSmiles(smiles)
+
+    if molecule is None:
+        return None
+
+    return Draw.MolToImage(molecule, size=(420, 320))
+
+
 def calculate_risk_score(drug_name, descriptors):
     """Calculate a simple educational risk score from rule-based chemistry signals."""
     score = 0
@@ -84,19 +95,19 @@ def calculate_risk_score(drug_name, descriptors):
 
     if descriptors["LogP"] > 3.5:
         score += 1
-        reasons.append("LogP가 3.5보다 큽니다.")
+        reasons.append("LogP가 3.5보다 높아 지용성이 큰 편입니다.")
 
     if descriptors["TPSA"] < 40:
         score += 1
-        reasons.append("TPSA가 40보다 작습니다.")
+        reasons.append("TPSA가 40보다 낮아 극성 표면적이 작은 편입니다.")
 
     if descriptors["Molecular Weight"] > 500:
         score += 1
-        reasons.append("분자량이 500보다 큽니다.")
+        reasons.append("분자량이 500보다 커서 큰 분자에 해당합니다.")
 
     if drug_name.strip().lower() in CONTROLLED_ABUSE_RISK_DRUGS:
         score += 2
-        reasons.append("주의가 필요한 약물 목록에 포함되어 있습니다.")
+        reasons.append("교육용 주의 약물 목록에 포함되어 있어 추가 점수가 붙었습니다.")
 
     if score == 0:
         level = "Low"
@@ -224,6 +235,72 @@ def make_descriptor_table(descriptors):
     return pd.DataFrame(rows, columns=["Descriptor", "Value", "Meaning"])
 
 
+def make_rule_check_table(drug_name, descriptors):
+    """Show which rules were triggered in a student-friendly way."""
+    normalized_name = drug_name.strip().lower()
+
+    rows = [
+        {
+            "Rule": "LogP > 3.5",
+            "Current Value": f"{descriptors['LogP']:.2f}",
+            "Triggered": descriptors["LogP"] > 3.5,
+            "Why It Matters": "지용성이 큰 분자는 몸 안에서 이동하거나 축적되는 방식이 달라질 수 있습니다.",
+        },
+        {
+            "Rule": "TPSA < 40",
+            "Current Value": f"{descriptors['TPSA']:.2f}",
+            "Triggered": descriptors["TPSA"] < 40,
+            "Why It Matters": "극성 표면적이 작으면 생체막과의 상호작용이 달라질 수 있습니다.",
+        },
+        {
+            "Rule": "Molecular Weight > 500",
+            "Current Value": f"{descriptors['Molecular Weight']:.2f}",
+            "Triggered": descriptors["Molecular Weight"] > 500,
+            "Why It Matters": "분자가 너무 크면 흡수나 이동 특성이 달라질 수 있습니다.",
+        },
+        {
+            "Rule": "Controlled/abuse-risk list",
+            "Current Value": normalized_name,
+            "Triggered": normalized_name in CONTROLLED_ABUSE_RISK_DRUGS,
+            "Why It Matters": "이 앱에서 정한 교육용 주의 목록에 포함된 경우입니다.",
+        },
+    ]
+
+    table = pd.DataFrame(rows)
+    table["Result"] = table["Triggered"].map({True: "주의 신호 있음", False: "해당 없음"})
+    return table[["Rule", "Current Value", "Result", "Why It Matters"]]
+
+
+def make_normalized_descriptor_table(descriptors):
+    """Normalize selected descriptors so their relative size is easy to compare visually."""
+    rows = [
+        ("Molecular Weight", min(descriptors["Molecular Weight"] / 500, 1.5), "500 기준"),
+        ("LogP", min(descriptors["LogP"] / 3.5, 1.5), "3.5 기준"),
+        ("TPSA", min(descriptors["TPSA"] / 120, 1.5), "120 기준"),
+        ("H-bond Donors", min(descriptors["H-bond Donors"] / 5, 1.5), "5 기준"),
+        ("H-bond Acceptors", min(descriptors["H-bond Acceptors"] / 10, 1.5), "10 기준"),
+        ("Rotatable Bonds", min(descriptors["Rotatable Bonds"] / 10, 1.5), "10 기준"),
+    ]
+
+    return pd.DataFrame(rows, columns=["Descriptor", "Relative Value", "Reference"])
+
+
+def show_risk_gauge(risk_score, risk_level):
+    """Display a simple visual risk gauge without adding extra dependencies."""
+    gauge_value = min(risk_score / 5, 1.0)
+
+    if risk_level == "Low":
+        label = "Low - 낮음"
+    elif risk_level == "Moderate":
+        label = "Moderate - 보통"
+    else:
+        label = "High - 높음"
+
+    st.metric("Risk Level", label)
+    st.progress(gauge_value)
+    st.caption("이 게이지는 교육용 규칙 점수를 시각화한 것이며, 실제 의학적 위험도를 의미하지 않습니다.")
+
+
 def main():
     st.set_page_config(
         page_title="AI Drug Risk Analyzer",
@@ -272,12 +349,25 @@ def main():
     info_col2.metric("Formula", compound_info["molecular_formula"] or "N/A")
     info_col3.metric("PubChem MW", compound_info["pubchem_molecular_weight"] or "N/A")
 
-    st.text_area(
-        "Canonical SMILES",
-        value=compound_info["canonical_smiles"],
-        height=80,
-        disabled=True,
-    )
+    structure_col, smiles_col = st.columns([1, 1.3])
+    molecule_image = draw_molecule(compound_info["canonical_smiles"])
+
+    with structure_col:
+        st.subheader("Molecular Structure")
+        if molecule_image:
+            st.image(molecule_image, caption="RDKit 2D structure")
+        else:
+            st.info("분자 구조 이미지를 생성하지 못했습니다.")
+
+    with smiles_col:
+        st.subheader("Canonical SMILES")
+        st.text_area(
+            "SMILES string from PubChem",
+            value=compound_info["canonical_smiles"],
+            height=170,
+            disabled=True,
+            label_visibility="collapsed",
+        )
 
     st.subheader("RDKit Descriptors")
     descriptor_table = make_descriptor_table(descriptors)
@@ -288,16 +378,29 @@ def main():
     metric_col2.metric("Risk Level", risk_level)
     metric_col3.metric("LogP", f"{descriptors['LogP']:.2f}")
 
-    st.subheader("Descriptor Bar Chart")
-    chart_data = descriptor_table.set_index("Descriptor")[["Value"]]
-    st.bar_chart(chart_data)
+    gauge_col, chart_col = st.columns([1, 1.4])
+    with gauge_col:
+        st.subheader("Risk Gauge")
+        show_risk_gauge(risk_score, risk_level)
 
-    st.subheader("Risk Score Reasons")
+    with chart_col:
+        st.subheader("Descriptor Snapshot")
+        normalized_chart = make_normalized_descriptor_table(descriptors)
+        st.bar_chart(normalized_chart.set_index("Descriptor")[["Relative Value"]])
+
+    st.subheader("Rule Check")
+    st.dataframe(
+        make_rule_check_table(drug_name, descriptors),
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    st.subheader("Risk Score Notes")
     if reasons:
         for reason in reasons:
             st.write(f"- {reason}")
     else:
-        st.write("- 위험 점수를 올린 규칙이 없습니다.")
+        st.write("- 이번 분석에서는 점수를 올린 주의 신호가 없었습니다.")
 
     st.subheader("Gemini Korean Explanation")
     with st.spinner("Gemini가 한국어 설명을 작성하는 중입니다..."):
