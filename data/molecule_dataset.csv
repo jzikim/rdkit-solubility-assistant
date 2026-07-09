@@ -1,0 +1,9 @@
+name,smiles,target_property
+ethanol,CCO,
+benzene,c1ccccc1,
+acetone,CC(=O)C,
+aspirin,CC(=O)OC1=CC=CC=C1C(=O)O,
+caffeine,Cn1cnc2c1c(=O)n(C)c(=O)n2C,
+aniline,c1ccccc1N,
+phenol,c1ccccc1O,
+ibuprofen,CC(C)Cc1ccc(cc1)[C@@H](C)C(=O)O,

@@ -3,3 +3,6 @@ pubchempy
 rdkit
 pandas
 google-genai
+scikit-learn
+joblib
+numpy

@@ -135,3 +135,30 @@ After deployment, Streamlit will give you a public link that students can open i
 |-- README.md
 `-- .gitignore
 ```
+
+## Property Regression Demo (educational)
+
+This repository includes a small demo showing how to train a scikit-learn regression
+model to predict a chemical property from SMILES using RDKit features.
+
+- Dataset: `data/molecule_dataset.csv` (columns: `name,smiles,target_property`). If `target_property` is empty, the training script will fall back to RDKit-calculated LogP for demonstration purposes.
+- Featurization: `src/features.py` — RDKit descriptors + Morgan fingerprint.
+- Train: `src/train_property_model.py` — trains a RandomForest pipeline and saves `models/property_model.pkl`.
+- Predict: `src/predict_property.py` — load model and predict for a given SMILES.
+
+Example train run:
+
+```bash
+python -m src.train_property_model --csv data/molecule_dataset.csv --target target_property
+```
+
+Example predict run:
+
+```bash
+python -m src.predict_property --smiles "CCO"
+```
+
+Notes:
+- This demo is educational. Do not use model predictions for medical or safety decisions.
+- With very small datasets the model will be noisy; collect more labeled examples for better performance.
+

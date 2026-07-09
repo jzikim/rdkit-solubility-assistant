@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>김중혁 자기소개서</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --deep: #16213e;
+    --accent: #c9a96e;
+    --accent-light: #e8d5b0;
+    --muted: #6b7280;
+    --border: #e5e0d8;
+    --bg: #faf8f5;
+    --white: #ffffff;
+    --rule: #d4c9b8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 9.5pt;
+    line-height: 1.75;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    background: var(--white);
+    position: relative;
+  }
+
+  /* ── 헤더 ── */
+  .header {
+    background: var(--deep);
+    padding: 36px 52px 32px;
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(201,169,110,0.12);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+
+  .header-left { flex: 1; }
+
+  .name-ko {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 28pt;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 6px;
+    line-height: 1;
+  }
+  .name-en {
+    font-size: 9pt;
+    color: var(--accent);
+    letter-spacing: 4px;
+    margin-top: 6px;
+    font-weight: 300;
+    text-transform: uppercase;
+  }
+  .tagline {
+    margin-top: 12px;
+    font-size: 8.5pt;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+
+  .header-contact {
+    text-align: right;
+    font-size: 7.5pt;
+    color: rgba(255,255,255,0.65);
+    line-height: 2;
+  }
+  .header-contact a { color: var(--accent-light); text-decoration: none; }
+
+  /* ── 본문 레이아웃 ── */
+  .body-wrap {
+    display: flex;
+  }
+
+  .sidebar {
+    width: 66mm;
+    background: #f5f2ed;
+    padding: 28px 22px;
+    border-right: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .main {
+    flex: 1;
+    padding: 28px 32px;
+  }
+
+  /* ── 공통 섹션 타이틀 ── */
+  .sec-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 5px;
+    margin-bottom: 12px;
+    margin-top: 22px;
+  }
+  .sec-title:first-child { margin-top: 0; }
+
+  /* ── 사이드바 아이템 ── */
+  .side-item {
+    margin-bottom: 8px;
+    font-size: 8pt;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .side-label {
+    font-size: 7pt;
+    color: var(--muted);
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+  }
+
+  .skill-tag {
+    display: inline-block;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    font-size: 7pt;
+    padding: 2px 7px;
+    margin: 2px 2px 2px 0;
+    color: var(--ink);
+    letter-spacing: 0.3px;
+  }
+  .skill-tag.highlight {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  /* ── 자기소개서 섹션 ── */
+  .intro-block {
+    margin-bottom: 18px;
+  }
+  .intro-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 9.5pt;
+    font-weight: 600;
+    color: var(--deep);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .intro-title::before {
+    content: '';
+    display: inline-block;
+    width: 14px; height: 2px;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+  .intro-body {
+    font-size: 8.8pt;
+    color: #3a3a4a;
+    line-height: 1.85;
+    text-align: justify;
+    word-break: keep-all;
+  }
+
+  /* ── 경력/학력 아이템 ── */
+  .exp-item {
+    margin-bottom: 13px;
+    padding-left: 12px;
+    border-left: 2px solid var(--border);
+    transition: border-color 0.2s;
+  }
+  .exp-item:hover { border-left-color: var(--accent); }
+
+  .exp-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .exp-org {
+    font-weight: 700;
+    font-size: 9pt;
+    color: var(--deep);
+  }
+  .exp-period {
+    font-size: 7.5pt;
+    color: var(--muted);
+    letter-spacing: 0.3px;
+  }
+  .exp-role {
+    font-size: 8pt;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .exp-bullets {
+    list-style: none;
+    padding: 0;
+  }
+  .exp-bullets li {
+    font-size: 8.3pt;
+    color: #444;
+    line-height: 1.7;
+    padding-left: 10px;
+    position: relative;
+    word-break: keep-all;
+  }
+  .exp-bullets li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* ── 수상 ── */
+  .award-item {
+    font-size: 8pt;
+    color: #444;
+    padding: 4px 0;
+    border-bottom: 1px dashed var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    word-break: keep-all;
+  }
+  .award-item:last-child { border-bottom: none; }
+  .award-date { color: var(--muted); font-size: 7.5pt; flex-shrink: 0; }
+
+  /* ── 인쇄 ── */
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; }
+  }
+
+  @media screen {
+    body { padding: 20px 0 60px; }
+    .page { box-shadow: 0 4px 40px rgba(0,0,0,0.12); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 헤더 -->
+  <div class="header">
+    <div class="header-left">
+      <div class="name-ko">김 중 혁</div>
+      <div class="name-en">Joonghyuk Kim</div>
+      <div class="tagline">Data Science · Economics · AI Applications</div>
+    </div>
+    <div class="header-contact">
+      <div>jkim2245@wisc.edu</div>
+      <div>(608) 209-1541</div>
+      <div><a href="https://linkedin.com/in/jkim618">linkedin.com/in/jkim618</a></div>
+    </div>
+  </div>
+
+  <div class="body-wrap">
+
+    <!-- 사이드바 -->
+    <div class="sidebar">
+
+      <div class="sec-title">학력</div>
+
+      <div class="side-item">
+        <span class="side-label">현재</span>
+        <strong>위스콘신대학교 매디슨</strong><br>
+        데이터사이언스 / 경제학 (복수전공)<br>
+        GPA 3.5 · 2026.03 ~ 2028.05 예정
+      </div>
+      <div class="side-item" style="margin-top:8px">
+        <span class="side-label">편입 전</span>
+        <strong>미시간주립대학교</strong><br>
+        경제학<br>
+        GPA 3.75 · 2022.09 ~ 2023.05
+      </div>
+
+      <div class="sec-title">자격 / 수료</div>
+      <div class="side-item">
+        <span class="skill-tag highlight">Google AI</span>
+        <span class="skill-tag highlight">Google Advanced Data Analytics</span>
+        <span class="skill-tag">Mastercard Consulting Simulation</span>
+        <span class="skill-tag">Quantium Data Analytics</span>
+      </div>
+
+      <div class="sec-title">프로그래밍</div>
+      <div class="side-item">
+        <span class="skill-tag highlight">Python</span>
+        <span class="skill-tag highlight">SQL</span>
+        <span class="skill-tag highlight">Pandas</span>
+        <span class="skill-tag">R</span>
+        <span class="skill-tag">Kotlin</span>
+      </div>
+
+      <div class="sec-title">생산성 도구</div>
+      <div class="side-item">
+        <span class="skill-tag">MS Excel</span>
+        <span class="skill-tag">PowerPoint</span>
+        <span class="skill-tag">Word</span>
+        <span class="skill-tag">Google Workspace</span>
+      </div>
+
+      <div class="sec-title">어학</div>
+      <div class="side-item">
+        <strong>한국어</strong> — 모국어<br>
+        <strong>영어</strong> — 미국 대학 재학 (업무 수준)<br>
+      </div>
+
+      <div class="sec-title">병역</div>
+      <div class="side-item">
+        대한민국 육군 병장 만기전역<br>
+        <span style="font-size:7.5pt;color:var(--muted)">2023.12 ~ 2025.06<br>제1보병사단 최전방 소총수·분대장</span>
+      </div>
+
+      <div class="sec-title">수상</div>
+      <div style="font-size:7.8pt; color:#444; line-height:1.7; word-break:keep-all">
+        · Dean's List — MSU (2022–2023)<br>
+        · 글로벌 앰배서더 장학금 — MSU<br>
+        · 작전 공로 표창 2회 — 육군<br>
+        · 최전방 사전 배치 훈련 우수상
+      </div>
+
+    </div>
+
+    <!-- 메인 -->
+    <div class="main">
+
+      <!-- ① 성장 과정 -->
+      <div class="intro-block">
+        <div class="intro-title">성장 과정 및 지원 동기</div>
+        <div class="intro-body">
+          저는 미국 유학 중 경제학에서 데이터사이언스로 전공을 확장하며, 숫자와 현실의 접점에서 답을 찾는 것에 매력을 느꼈습니다. 미시간주립대에서 학점 우수 장학생으로 시작해 위스콘신대 매디슨으로 편입한 경험은, 단순히 학업 성취를 넘어 낯선 환경에서 스스로 방향을 설정하는 능력을 키워주었습니다. 이후 군 복무 기간 동안 제1보병사단 최전방 분대장으로서 불확실한 상황에서도 팀을 이끌어 작전 공로 표창을 수상하며, 데이터 기반 판단력과 리더십이 결코 상충하지 않는다는 것을 몸소 경험했습니다.
+        </div>
+      </div>
+
+      <!-- ② 직무 역량 -->
+      <div class="intro-block">
+        <div class="intro-title">직무 역량 및 프로젝트 경험</div>
+        <div class="intro-body">
+          Python·SQL·R 기반의 데이터 분석 역량을 바탕으로, 수면 시간과 학업 성취 간의 상관관계를 검증하는 학생 1만 명 규모 데이터 프로젝트를 수행하였습니다. AI 기반 농촌 응급 모니터링 플랫폼(HERO)에서는 Kakao Map API와 기상 서비스를 연동한 API 통합을 직접 개발하였고, 웨어러블 헬스케어 모니터링 프로젝트에서 실시간 이상 탐지 로직 구현에 참여하였습니다. 또한 한국 비즈니스 학생 협회에서 핀테크 기업 기업가치 평가 및 사기 탐지 전략 제안서를 작성하며 실무형 분석 역량을 쌓았습니다. 이커머스 MD 경험을 통해 신규 플랫폼 온보딩 및 카테고리 전략 수립으로 매출 신규 창출에 직접 기여한 경험도 보유하고 있습니다.
+        </div>
+      </div>
+
+      <!-- ③ 성격 및 생활신조 -->
+      <div class="intro-block">
+        <div class="intro-title">성격의 장단점 및 생활 신조</div>
+        <div class="intro-body">
+          저의 강점은 <strong>체계적인 실행력</strong>과 <strong>다양한 맥락에서의 소통 능력</strong>입니다. 보이스카우트 팀 리더로서 8년간 국제 환경 보전 활동에 참여하고 글로벌 청소년 행사의 운영 에이전트 및 통역을 맡으며, 다양한 문화와 언어 환경에서 프로젝트를 조율하는 경험을 쌓았습니다. 한편 다양한 프로젝트를 동시에 진행하다 보면 우선순위 설정이 도전적인 순간이 있는데, 이를 극복하기 위해 KPI 기반의 주간 목표 설정 습관을 들이고 있습니다. 저의 생활 신조는 <em>"데이터는 현실의 언어다"</em>로, 추상적 아이디어를 검증 가능한 지표로 전환하는 사람이 되고자 합니다.
+        </div>
+      </div>
+
+      <!-- ④ 입사 후 포부 -->
+      <div class="intro-block">
+        <div class="intro-title">입사 후 포부</div>
+        <div class="intro-body">
+          데이터 분석과 비즈니스 전략을 연결하는 실무자로 성장하고자 합니다. 단기적으로는 기업 내 데이터 파이프라인 및 분석 프로세스의 신뢰성을 높이는 데 기여하고, 중장기적으로는 데이터 인사이트를 통해 의사결정 구조를 혁신하는 역할을 맡고 싶습니다. 학업과 프로젝트, 군 복무에서 쌓은 실행력과 문제 해결 감각을 바탕으로, 조직에 즉각적이고 실질적인 기여를 하겠습니다.
+        </div>
+      </div>
+
+      <div class="sec-title" style="margin-top:16px">경력 사항</div>
+
+      <div class="exp-item">
+        <div class="exp-head">
+          <span class="exp-org">DesignJ</span>
+          <span class="exp-period">2026.05 ~ 현재</span>
+        </div>
+        <div class="exp-role">오퍼레이션 어시스턴트</div>
+        <ul class="exp-bullets">
+          <li>COMPOSE COFFEE 등 기업 고객 대상 가구 유통·현장 설치 지원</li>
+          <li>다수 비즈니스 플랫폼 대상 B2B 파트너십 기획 및 제안서 개발</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-head">
+          <span class="exp-org">Barunhome Corp.</span>
+          <span class="exp-period">2025.07 ~ 2025.12</span>
+        </div>
+        <div class="exp-role">이커머스 MD</div>
+        <ul class="exp-bullets">
+          <li>신규 플랫폼 입점을 통한 유통 채널 확장으로 신규 매출 창출</li>
+          <li>가구 카테고리 상품 구성, 프로모션 기획 및 판매 성과 관리</li>
+          <li>POS 거래 관리, 마감 정산 등 일일 운영 절차 총괄</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-head">
+          <span class="exp-org">대한민국 육군 제1보병사단</span>
+          <span class="exp-period">2023.12 ~ 2025.06</span>
+        </div>
+        <div class="exp-role">분대장 (병장 만기전역)</div>
+        <ul class="exp-bullets">
+          <li>최전방 감시 체계 운용 및 24시간 경계 근무 수행</li>
+          <li>고압적 상황에서의 분대 지휘, 작전 공로 표창 2회 수상</li>
+        </ul>
+      </div>
+
+      <div class="sec-title">주요 프로젝트</div>
+
+      <div class="exp-item">
+        <div class="exp-head">
+          <span class="exp-org">HERO — AI 응급 모니터링 앱</span>
+          <span class="exp-period">2026.05 ~ 현재</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Kakao Map API·기상 서비스 연동 API 통합 개발 (농촌 노인 대상)</li>
+          <li>웨어러블 기반 AI 음성 통화 및 실시간 이상 탐지 시스템 참여</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-head">
+          <span class="exp-org">대학생 수면·학업 성취 데이터 분석</span>
+          <span class="exp-period">2026.03 ~ 2026.04</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>1만 명 학생 레코드 대상 수면 시간·출석률과 GPA 상관 분석</li>
+          <li>R + AI 보조 워크플로우로 가설 검정·시각화·패턴 해석 수행</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

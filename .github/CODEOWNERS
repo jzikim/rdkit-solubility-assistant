@@ -1,0 +1,9 @@
+# CODEOWNERS file
+# Replace `your-github-username` with the repo owner or team that must review changes.
+
+# Default owner for the repository
+* @your-github-username
+
+# Owners for source files
+/src/ @your-github-username
+app.py @your-github-username

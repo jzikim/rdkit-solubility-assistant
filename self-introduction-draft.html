@@ -1,0 +1,489 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>김중혁 자기소개서</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --deep: #16213e;
+    --accent: #c9a96e;
+    --accent-light: #e8d5b0;
+    --muted: #6b7280;
+    --border: #e5e0d8;
+    --bg: #faf8f5;
+    --white: #ffffff;
+    --rule: #d4c9b8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 9.5pt;
+    line-height: 1.75;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    background: var(--white);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── 헤더 ── */
+  .header {
+    background: var(--deep);
+    padding: 36px 52px 32px;
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(201,169,110,0.12);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+
+  .header-left { flex: 1; }
+
+  .name-ko {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 28pt;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 6px;
+    line-height: 1;
+  }
+  .name-en {
+    font-size: 9pt;
+    color: var(--accent);
+    letter-spacing: 4px;
+    margin-top: 6px;
+    font-weight: 300;
+    text-transform: uppercase;
+  }
+  .tagline {
+    margin-top: 12px;
+    font-size: 8.5pt;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+
+  .header-contact {
+    text-align: right;
+    font-size: 7.5pt;
+    color: rgba(255,255,255,0.65);
+    line-height: 2;
+  }
+  .header-contact a { color: var(--accent-light); text-decoration: none; }
+
+  /* ── 본문 레이아웃 ── */
+  .body-wrap {
+    display: flex;
+    flex: 1;
+  }
+
+  .sidebar {
+    width: 66mm;
+    background: #f5f2ed;
+    padding: 28px 22px;
+    border-right: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .main {
+    flex: 1;
+    padding: 30px 32px 34px;
+  }
+
+  /* ── 공통 섹션 타이틀 ── */
+  .sec-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 5px;
+    margin-bottom: 12px;
+    margin-top: 22px;
+  }
+  .sec-title:first-child { margin-top: 0; }
+
+  /* ── 사이드바 아이템 ── */
+  .side-item {
+    margin-bottom: 8px;
+    font-size: 8pt;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .side-label {
+    font-size: 7pt;
+    color: var(--muted);
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+  }
+
+  .skill-tag {
+    display: inline-block;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    font-size: 7pt;
+    padding: 2px 7px;
+    margin: 2px 2px 2px 0;
+    color: var(--ink);
+    letter-spacing: 0.3px;
+  }
+  .skill-tag.highlight {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  /* ── 자기소개서 섹션 ── */
+  .intro-block {
+    margin-bottom: 18px;
+  }
+  .intro-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 9.5pt;
+    font-weight: 600;
+    color: var(--deep);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .intro-title::before {
+    content: '';
+    display: inline-block;
+    width: 14px; height: 2px;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+  .intro-body {
+    font-size: 8.8pt;
+    color: #3a3a4a;
+    line-height: 1.85;
+    text-align: justify;
+    word-break: keep-all;
+  }
+
+  /* ── 경력/학력 아이템 ── */
+  .exp-item {
+    margin-bottom: 15px;
+    padding-left: 12px;
+    border-left: 2px solid var(--border);
+    transition: border-color 0.2s;
+  }
+  .exp-item:hover { border-left-color: var(--accent); }
+
+  .exp-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .exp-org {
+    font-weight: 700;
+    font-size: 9pt;
+    color: var(--deep);
+  }
+  .exp-period {
+    font-size: 7.5pt;
+    color: var(--muted);
+    letter-spacing: 0.3px;
+  }
+  .exp-role {
+    font-size: 8pt;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .exp-bullets {
+    list-style: none;
+    padding: 0;
+  }
+  .exp-bullets li {
+    font-size: 8.3pt;
+    color: #444;
+    line-height: 1.7;
+    padding-left: 10px;
+    position: relative;
+    word-break: keep-all;
+  }
+  .project-item {
+    margin-bottom: 10px;
+  }
+  .project-item .exp-bullets li {
+    line-height: 1.48;
+  }
+  .exp-bullets li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* ── 수상 ── */
+  .award-item {
+    font-size: 8pt;
+    color: #444;
+    padding: 4px 0;
+    border-bottom: 1px dashed var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    word-break: keep-all;
+  }
+  .award-item:last-child { border-bottom: none; }
+  .award-date { color: var(--muted); font-size: 7.5pt; flex-shrink: 0; }
+
+  /* ── 인쇄 ── */
+  @media print {
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    body { background: white; }
+    .page {
+      box-shadow: none;
+      width: 210mm;
+      min-height: 297mm;
+    }
+    .intro-block,
+    .exp-item,
+    .side-item {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+  }
+
+  @media screen {
+    body { padding: 20px 0 60px; }
+    .page { box-shadow: 0 4px 40px rgba(0,0,0,0.12); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 헤더 -->
+  <div class="header">
+    <div class="header-left">
+      <div class="name-ko">김 중 혁</div>
+      <div class="name-en">Joonghyuk Kim</div>
+      <div class="tagline">Data Science · Economics · Business Analytics</div>
+    </div>
+    <div class="header-contact">
+      <div>jkim2245@wisc.edu</div>
+      <div>+82 10-2009-9567 | +1 (608) 209-1541</div>
+      <div><a href="https://linkedin.com/in/jkim618">linkedin.com/in/jkim618</a></div>
+      <div><a href="https://jzikim.github.io">jzikim.github.io</a></div>
+    </div>
+  </div>
+
+  <div class="body-wrap">
+
+    <!-- 사이드바 -->
+    <div class="sidebar">
+
+      <div class="sec-title">학력</div>
+
+      <div class="side-item">
+        <strong>University of Wisconsin-Madison</strong><br>
+        B.S. Data Science / Economics<br>
+        GPA 3.5 · 2026.01 - 2028.05 (예정)
+      </div>
+      <div class="side-item" style="margin-top:8px">
+        <strong>Michigan State University</strong><br>
+        B.S. Economics<br>
+        GPA 3.75 · 2022.08 - 2023.05
+      </div>
+
+      <div class="sec-title">자격 / 수료</div>
+      <div class="side-item">
+        <span class="skill-tag highlight">Google AI</span>
+        <span class="skill-tag highlight">Google Advanced Data Analytics</span>
+        <span class="skill-tag">Mastercard Consulting Simulation</span>
+        <span class="skill-tag">Quantium Data Analytics</span>
+      </div>
+
+      <div class="sec-title">프로그래밍</div>
+      <div class="side-item">
+        <span class="skill-tag highlight">Python</span>
+        <span class="skill-tag highlight">SQL</span>
+        <span class="skill-tag highlight">Pandas</span>
+        <span class="skill-tag">R</span>
+      </div>
+
+      <div class="sec-title">어학</div>
+      <div class="side-item">
+        <strong>한국어</strong> — 모국어<br>
+        <strong>영어</strong> — 상급<br>
+      </div>
+
+      <div class="sec-title">병역</div>
+      <div class="side-item">
+        대한민국 육군 제1보병사단 만기전역<br>
+        <span style="font-size:7.5pt;color:var(--muted)">2023.12.18 ~ 2025.06.17</span>
+      </div>
+
+      <div class="sec-title">수상</div>
+      <div style="font-size:7.8pt; color:#444; line-height:1.7; word-break:keep-all">
+        · Global Ambassador Grant — MSU<br>
+        · Dean's List 2회 — MSU<br>
+        · GOP 경계작전 유공 2회 — 대한민국 육군<br>
+        · GOP 투입 전 교육 우수상 — 대한민국 육군
+      </div>
+
+      <div class="sec-title">관심 분야</div>
+      <div class="side-item">
+        비즈니스 데이터 분석<br>
+        금융·시장 분석<br>
+        이커머스 운영<br>
+        고객 행동 리서치<br>
+        AI 기반 업무 자동화
+      </div>
+
+    </div>
+
+    <!-- 메인 -->
+    <div class="main">
+
+      <div class="sec-title" style="margin-top:0">경력 사항</div>
+
+      <div class="exp-item project-item">
+        <div class="exp-head">
+          <span class="exp-org">Design J</span>
+          <span class="exp-period">2026.05 - 현재</span>
+        </div>
+        <div class="exp-role">프로젝트 운영 지원 담당</div>
+        <ul class="exp-bullets">
+          <li>COMPOSE COFFEE를 포함한 기업 고객 대상 가구 납품 및 현장 설치 지원</li>
+          <li>B2B 플랫폼 리서치, 파트너십 프로젝트 및 제안서 개발 지원</li>
+        </ul>
+      </div>
+
+      <div class="exp-item project-item">
+        <div class="exp-head">
+          <span class="exp-org">Barunhome Corp.</span>
+          <span class="exp-period">2025.07 - 2025.12</span>
+        </div>
+        <div class="exp-role">온라인 상품기획 / 이커머스 운영 담당</div>
+        <ul class="exp-bullets">
+          <li>신규 플랫폼 입점을 통해 마켓플레이스 유통망 확장 및 신규 매출 창출</li>
+          <li>가구 카테고리 상품 구성, 어소트먼트, 프로모션 운영 및 판매 성과 관리</li>
+          <li>POS 거래 관리, 일 마감 정산, 재고 보충 등 매장 운영 프로세스 수행</li>
+        </ul>
+      </div>
+
+      <div class="exp-item project-item">
+        <div class="exp-head">
+          <span class="exp-org">MSU Culinary Service</span>
+          <span class="exp-period">2023.01 - 2023.04</span>
+        </div>
+        <div class="exp-role">학생 조리 및 리셉션 담당</div>
+        <ul class="exp-bullets">
+          <li>캠퍼스 다이닝 운영 환경에서 조리 지원, 고객 응대, 일일 서비스 운영 수행</li>
+          <li>피크타임 재고 보충과 사전 준비를 담당하며 원활한 매장 운영에 기여</li>
+        </ul>
+      </div>
+
+      <div class="sec-title">활동 및 경험</div>
+
+      <div class="exp-item">
+        <div class="exp-head">
+          <span class="exp-org">Korean Business Student Association</span>
+          <span class="exp-period">2026.01 - 현재</span>
+        </div>
+        <div class="exp-role">팀 멤버</div>
+        <ul class="exp-bullets">
+          <li>주간 투자 발표를 통해 기업가치 평가와 KPI 추적 분석 수행</li>
+          <li>사기 탐지 및 리스크 세분화 전략을 활용한 핀테크 턴어라운드 제안서 개발</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-head">
+          <span class="exp-org">Korean Undergraduate Student Association</span>
+          <span class="exp-period">2026.05 - 현재</span>
+        </div>
+        <div class="exp-role">마케팅 팀원 / 외부 파트너십 담당</div>
+        <ul class="exp-bullets">
+          <li>Chase·AT&amp;T와의 협업을 통해 신입·편입 한인 학생 대상 금융·통신 온보딩 행사 기획</li>
+          <li>파트너사 미팅, 일정 조율, 협업 구조 설계 및 참여자 안내 커뮤니케이션 담당</li>
+        </ul>
+      </div>
+
+      <div class="sec-title">주요 프로젝트</div>
+
+      <div class="exp-item">
+        <div class="exp-head">
+          <span class="exp-org">HERE-로: 고령 농업인 대상 응급 모니터링 &amp; AI 콜 시스템</span>
+          <span class="exp-period">2026.05 - 현재</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Kakao Map API와 기상 서비스를 활용한 농촌 응급 대응 플랫폼 API 통합 개발</li>
+          <li>AI 음성 통화와 실시간 이상 탐지를 활용한 웨어러블 헬스케어 모니터링 프로젝트 참여</li>
+          <li>Cursor AI, VS Code, GitHub 기반 기능 설계·코드 작성·구현 워크플로우 경험</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-head">
+          <span class="exp-org">저현고등학교 STEM 연구계획 멘토링 프로그램</span>
+          <span class="exp-period">2026.05 - 2026.07</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>고등학생 팀의 RDKit 기반 용해도 분석 프로젝트 멘토링, 워크플로우 설계 및 실행 가능성 검토</li>
+          <li>AI·화학 연구를 위한 프로젝트 범위 설정, descriptor 기반 데이터 구조화, 모델 평가 지도</li>
+          <li>Google Colab, Python, RDKit 및 AI 도구 활용 방향 지도</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-head">
+          <span class="exp-org">College Student Performance & Sleep Analysis</span>
+          <span class="exp-period">2026.03 - 2026.04</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>학생 1만 명 레코드를 분석해 수면 시간·출석률과 GPA 간 관계 검토</li>
+          <li>R과 AI 보조 워크플로우를 활용해 가설 검정, 추세 시각화, 성과 패턴 해석 수행</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
