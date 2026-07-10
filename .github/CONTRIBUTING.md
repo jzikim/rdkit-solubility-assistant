@@ -28,3 +28,12 @@ Guidelines
 - If your change affects the app UI or user workflow, include screenshots and a short usage note.
 
 If you are a maintainer and need direct push access, contact the repo owner to be added to the allowed push list.
+
+---
+
+## Student Contribution Tips
+
+- Forking is best. Do not push directly to `main` unless you are a repo maintainer.
+- Keep changes small and focused. One feature or bug fix per PR.
+- If you are changing the UI, include a screenshot and short explanation in the PR.
+- Do not add API keys, model binaries, or other secrets to the repository.

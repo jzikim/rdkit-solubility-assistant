@@ -119,6 +119,46 @@ GOOGLE_API_KEY = "your-api-key-here"
 
 After deployment, Streamlit will give you a public link that students can open in their browsers.
 
+> Note: The app is currently running locally at `http://localhost:8501`, but other students can only use a public URL after deployment.
+
+## Student Contribution Guide
+
+If you want your classmates to be able to improve the app, tell them to:
+
+1. Fork this repository on GitHub.
+2. Clone their fork and create a feature branch:
+
+```bash
+git clone https://github.com/<your-username>/rdkit-solubility-assistant.git
+cd rdkit-solubility-assistant
+git checkout -b feat/your-change
+```
+
+3. Create a Python virtual environment and install dependencies:
+
+```bash
+python -m venv .venv
+.venv\Scripts\Activate.ps1  # Windows PowerShell
+pip install -r requirements.txt
+```
+
+4. Run the app locally and confirm it works:
+
+```bash
+.venv\Scripts\python.exe -m streamlit run app.py
+```
+
+5. Make code changes, then commit and push the branch to their fork.
+6. Create a Pull Request (PR) from their fork to `jzikim/rdkit-solubility-assistant` `main`.
+
+This `fork + PR` workflow is the safest way for students to contribute while keeping the main repo clean.
+
+## What to Tell Friends on Kakao
+
+You can copy and send this message:
+
+> 이 앱은 `PubChem`에서 SMILES를 가져와 RDKit descriptor를 만들고, scikit-learn `RandomForestRegressor`로 LogS(용해도) 예측을 해 주는 교육용 프로젝트야. 직접 수정해 보고 싶으면 이 리포지토리를 포크해서 `feat/` 브랜치 만들고 코드를 바꾼 다음 PR 보내면 돼. 먼저 로컬에서 `python -m venv .venv`, `pip install -r requirements.txt`, `.\.venv\Scripts\python.exe -m streamlit run app.py`로 확인해 봐.
+
 ## Example Drug Names
 
 - `aspirin`
