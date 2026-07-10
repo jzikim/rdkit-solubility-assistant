@@ -1,10 +1,13 @@
 import os
 
+import joblib
 import pandas as pd
 import pubchempy as pcp
 import streamlit as st
 from rdkit import Chem
 from rdkit.Chem import Crippen, Descriptors, Lipinski, rdMolDescriptors
+
+from predict_logs import predict_logS_from_smiles
 
 try:
     from google import genai
@@ -224,6 +227,39 @@ def make_descriptor_table(descriptors):
     return pd.DataFrame(rows, columns=["Descriptor", "Value", "Meaning"])
 
 
+def make_ml_descriptor_table(descriptors):
+    """Create a descriptor table for the ML logS predictor."""
+    rows = [
+        ("Molecular Weight", descriptors["MolWt"], "분자의 질량"),
+        ("MolLogP", descriptors["MolLogP"], "지방에 잘 녹는 정도"),
+        ("TPSA", descriptors["TPSA"], "분자의 극성 표면적"),
+        ("NumHDonors", descriptors["NumHDonors"], "수소 결합을 줄 수 있는 개수"),
+        ("NumHAcceptors", descriptors["NumHAcceptors"], "수소 결합을 받을 수 있는 개수"),
+        ("NumRotatableBonds", descriptors["NumRotatableBonds"], "회전 가능한 결합 수"),
+        ("RingCount", descriptors["RingCount"], "고리 수"),
+        ("HeavyAtomCount", descriptors["HeavyAtomCount"], "무거운 원자 수"),
+    ]
+
+    return pd.DataFrame(rows, columns=["Descriptor", "Value", "Meaning"])
+
+
+def load_local_drug_database():
+    """Load the local molecule dataset into a lowercase lookup dictionary."""
+    result = {}
+    try:
+        df = pd.read_csv("data/molecule_dataset.csv")
+        if "name" in df.columns and "smiles" in df.columns:
+            for _, row in df.iterrows():
+                name = str(row["name"]).strip().lower()
+                result[name] = {
+                    "name": row["name"],
+                    "smiles": row["smiles"],
+                }
+    except Exception:
+        pass
+    return result
+
+
 def main():
     st.set_page_config(
         page_title="AI Drug Risk Analyzer",
@@ -253,35 +289,86 @@ def main():
         st.error("약물 이름을 입력해 주세요.")
         return
 
+    local_data = load_local_drug_database()
+    local_entry = local_data.get(drug_name.strip().lower())
+    local_found = local_entry is not None
+
     try:
-        with st.spinner("PubChem에서 약물 정보를 가져오는 중입니다..."):
-            compound_info = fetch_pubchem_compound(drug_name.strip())
+        if local_found and local_entry.get("smiles"):
+            smiles_source = local_entry["smiles"]
+        else:
+            with st.spinner("PubChem에서 약물 정보를 가져오는 중입니다..."):
+                compound_info = fetch_pubchem_compound(drug_name.strip())
+            smiles_source = compound_info["canonical_smiles"]
 
         with st.spinner("RDKit으로 분자 특성을 계산하는 중입니다..."):
-            descriptors = calculate_rdkit_descriptors(compound_info["canonical_smiles"])
+            descriptors = calculate_rdkit_descriptors(smiles_source)
 
         risk_score, risk_level, reasons = calculate_risk_score(drug_name, descriptors)
-
     except Exception as error:
         st.error(f"분석 중 오류가 발생했습니다: {error}")
         st.stop()
 
+    if local_found:
+        st.success("This drug was found in the local dataset.")
+
     st.subheader("PubChem Information")
     info_col1, info_col2, info_col3 = st.columns(3)
-    info_col1.metric("PubChem CID", compound_info["cid"])
-    info_col2.metric("Formula", compound_info["molecular_formula"] or "N/A")
-    info_col3.metric("PubChem MW", compound_info["pubchem_molecular_weight"] or "N/A")
+    if not local_found:
+        info_col1.metric("PubChem CID", compound_info["cid"])
+        info_col2.metric("Formula", compound_info["molecular_formula"] or "N/A")
+        info_col3.metric("PubChem MW", compound_info["pubchem_molecular_weight"] or "N/A")
 
-    st.text_area(
-        "Canonical SMILES",
-        value=compound_info["canonical_smiles"],
-        height=80,
-        disabled=True,
-    )
+        st.text_area(
+            "Canonical SMILES",
+            value=compound_info["canonical_smiles"],
+            height=80,
+            disabled=True,
+        )
+    else:
+        info_col1.metric("Local dataset SMILES", local_entry.get("smiles", "N/A"))
+        info_col2.metric("Local dataset name", local_entry.get("name", "N/A"))
+        info_col3.metric("Dataset source", "data/molecule_dataset.csv")
+        st.text_area(
+            "SMILES used for prediction",
+            value=smiles_source,
+            height=80,
+            disabled=True,
+        )
 
     st.subheader("RDKit Descriptors")
     descriptor_table = make_descriptor_table(descriptors)
     st.dataframe(descriptor_table, use_container_width=True, hide_index=True)
+
+    st.subheader("Machine Learning Prediction")
+    st.write(
+        "이 섹션은 PubChem 또는 로컬 데이터셋에서 가져온 SMILES와 RDKit descriptor를 사용한 `RandomForestRegressor` 기반 LogS 예측 결과를 보여줍니다. "
+        "이 결과는 교육용이며 실제 의약적 판단을 대신하지 않습니다."
+    )
+    model_path = "models/logs_model.pkl"
+    if not os.path.exists(model_path):
+        st.warning(
+            "LogS 모델이 없습니다. 먼저 `python train_logs_model.py`를 실행하여 `models/logs_model.pkl`을 생성하세요."
+        )
+    else:
+        try:
+            with st.spinner("LogS 예측 모델을 실행하는 중입니다..."):
+                ml_result = predict_logS_from_smiles(compound_info["canonical_smiles"], model_path=model_path)
+
+            st.markdown(
+                """**Model:** RandomForestRegressor  
+**Target:** LogS / aqueous solubility  
+**Input source:** PubChem SMILES + RDKit descriptors"""
+            )
+            st.metric("Predicted logS", f"{ml_result['predicted_logS']:.3f}")
+            st.write("Solubility interpretation:", ml_result["interpretation"])
+            st.info(
+                "This drug was not found in the local database. The result below was generated using PubChem SMILES, RDKit descriptors, and a scikit-learn ML model."
+            )
+            ml_descriptor_table = make_ml_descriptor_table(ml_result["descriptors"])
+            st.dataframe(ml_descriptor_table, use_container_width=True, hide_index=True)
+        except Exception as error:
+            st.error(f"Machine Learning Prediction 오류: {error}")
 
     metric_col1, metric_col2, metric_col3 = st.columns(3)
     metric_col1.metric("Risk Score", risk_score)
