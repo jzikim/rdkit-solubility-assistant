@@ -296,6 +296,13 @@ def main():
     try:
         if local_found and local_entry.get("smiles"):
             smiles_source = local_entry["smiles"]
+            compound_info = {
+                "name": drug_name,
+                "cid": "N/A",
+                "canonical_smiles": smiles_source,
+                "molecular_formula": local_entry.get("molecular_formula", "N/A"),
+                "pubchem_molecular_weight": local_entry.get("pubchem_molecular_weight", "N/A"),
+            }
         else:
             with st.spinner("PubChem에서 약물 정보를 가져오는 중입니다..."):
                 compound_info = fetch_pubchem_compound(drug_name.strip())
