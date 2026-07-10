@@ -26,6 +26,8 @@ Guidelines
 - Be respectful and descriptive in PR titles and descriptions.
 - Do not include secrets or large binary model files in the PR. Upload model files as Releases or use Git LFS.
 - If your change affects the app UI or user workflow, include screenshots and a short usage note.
+- Students can modify the app freely in their fork. Use a branch name like `feat/your-name-feature`.
+- Never commit `.streamlit/secrets.toml` or any API keys to the repository.
 
 If you are a maintainer and need direct push access, contact the repo owner to be added to the allowed push list.
 

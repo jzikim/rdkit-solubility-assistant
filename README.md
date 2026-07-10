@@ -4,6 +4,9 @@ A beginner-friendly Streamlit web app that analyzes an English drug name using P
 
 The app fetches basic compound data from PubChem, calculates molecular descriptors with RDKit, assigns a simple rule-based risk score, and asks Gemini to explain the result in Korean for high school students.
 
+Public demo: https://jhhsrdkitproject.streamlit.app/
+
+
 ## Features
 
 - Search a drug by English name using PubChemPy
@@ -119,6 +122,8 @@ GOOGLE_API_KEY = "your-api-key-here"
 
 After deployment, Streamlit will give you a public link that students can open in their browsers.
 
+Public demo: https://jhhsrdkitproject.streamlit.app/
+
 > Note: The app is currently running locally at `http://localhost:8501`, but other students can only use a public URL after deployment.
 
 ## Student Contribution Guide
@@ -148,10 +153,28 @@ pip install -r requirements.txt
 .venv\Scripts\python.exe -m streamlit run app.py
 ```
 
-5. Make code changes, then commit and push the branch to their fork.
-6. Create a Pull Request (PR) from their fork to `jzikim/rdkit-solubility-assistant` `main`.
+5. Make code changes freely in the forked repository.
+   - `app.py`에서 UI, 버튼, 설명을 바꿀 수 있어요.
+   - `predict_logs.py`와 `ml_features.py`에서 모델 예측 부분을 수정해도 됩니다.
+   - `README.md`도 함께 고쳐서 사용 방법을 더 쉽게 설명할 수 있어요.
+
+6. Commit and push the branch to their fork.
+7. Create a Pull Request (PR) from their fork to `jzikim/rdkit-solubility-assistant` `main`.
 
 This `fork + PR` workflow is the safest way for students to contribute while keeping the main repo clean.
+
+### 학생들한테 쉽게 알려주는 방법
+
+- 먼저 GitHub에서 `Fork` 버튼을 누르세요.
+- 내 저장소가 아닌 내 `Fork`에서 마음대로 코드를 고치면 됩니다.
+- 수정이 끝나면 `git push`하고 PR을 만드세요.
+- `main`에 바로 올리지 말고 항상 `feat/이름-기능` 브랜치로 작업하세요.
+
+### Gemini API 키는 공개 금지
+
+- `GOOGLE_API_KEY`는 개인 API 키이므로 절대 GitHub에 올리면 안 됩니다.
+- 이 프로젝트는 `.streamlit/secrets.toml` 파일을 `.gitignore`로 무시하도록 설정했습니다.
+- `secrets.toml`은 로컬에만 있어야 하며, GitHub에는 커밋되지 않습니다.
 
 ## What to Tell Friends on Kakao
 
