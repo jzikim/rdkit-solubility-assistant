@@ -29,3 +29,7 @@ Thumbs.db
 .ruff_cache/
 models/
 koreanresume*
+
+# Local browser profiles and personal resume exports
+.edge-pdf-profile/
+self-introduction-draft.*
