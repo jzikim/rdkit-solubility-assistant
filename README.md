@@ -7,6 +7,12 @@ The app fetches basic compound data from PubChem, calculates molecular descripto
 Public demo: https://jhhsrdkitproject.streamlit.app/
 
 
+## Repository scope
+
+This repository contains the AI Drug Risk Analyzer, its molecular datasets, and RDKit/LogS research code. Streamlit runs `app.py` from this repository.
+
+The personal portfolio website is maintained separately in [jzikim/jzikim.github.io](https://github.com/jzikim/jzikim.github.io) and published at [jzikim.github.io](https://jzikim.github.io/). Keep personal resumes, portfolio assets, and browser-generated files out of this application repository.
+
 ## Features
 
 - Search a drug by English name using PubChemPy
